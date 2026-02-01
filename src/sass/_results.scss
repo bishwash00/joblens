@@ -1,0 +1,264 @@
+// ============================================
+// RESULTS - Job Results Section
+// ============================================
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  // --------------------------------------------
+  // HEADER
+  // --------------------------------------------
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+
+    @media (max-width: $breakpoint-sm) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+  }
+
+  &__count {
+    font-size: $font-size-sm;
+    color: $text-muted;
+
+    strong {
+      color: $text-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  // --------------------------------------------
+  // VIEW TOGGLE
+  // --------------------------------------------
+  &__view-toggle {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-1;
+    background-color: $bg-card;
+    border-radius: $radius-md;
+    border: $border-width solid $border-color;
+  }
+
+  &__view-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: $text-muted;
+    background: transparent;
+    border-radius: $radius-sm;
+    transition: $transition-colors;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+      background-color: $color-primary-bg;
+    }
+  }
+
+  // --------------------------------------------
+  // RESULTS GRID
+  // --------------------------------------------
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: $spacing-4;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // List view modifier
+  &__grid--list {
+    grid-template-columns: 1fr;
+
+    .job-card {
+      flex-direction: row;
+      gap: $spacing-4;
+
+      &__header {
+        flex-shrink: 0;
+      }
+
+      &__body {
+        flex: 1;
+      }
+
+      &__footer {
+        flex-shrink: 0;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-top: 0;
+        margin-top: 0;
+        border-top: none;
+      }
+    }
+  }
+
+  // --------------------------------------------
+  // LOADING STATE
+  // --------------------------------------------
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    padding: $spacing-16 $spacing-4;
+  }
+
+  &__loading-text {
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+
+  // --------------------------------------------
+  // EMPTY STATE
+  // --------------------------------------------
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    padding: $spacing-16 $spacing-4;
+    text-align: center;
+  }
+
+  &__empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: $bg-card;
+    border-radius: $radius-full;
+
+    svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: $text-muted;
+    }
+  }
+
+  &__empty-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+  }
+
+  &__empty-text {
+    max-width: 400px;
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+
+  // --------------------------------------------
+  // ERROR STATE
+  // --------------------------------------------
+  &__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    padding: $spacing-16 $spacing-4;
+    text-align: center;
+  }
+
+  &__error-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: $color-error-bg;
+    border-radius: $radius-full;
+
+    svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: $color-error;
+    }
+  }
+
+  &__error-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+  }
+
+  &__error-text {
+    max-width: 400px;
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+
+  &__error-btn {
+    margin-top: $spacing-2;
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    background-color: $color-primary;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+
+    &:hover {
+      background-color: $color-primary-light;
+    }
+  }
+}
+
+// --------------------------------------------
+// SPINNER / LOADER
+// --------------------------------------------
+.spinner {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+
+  &__ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid $border-color;
+    border-top-color: $color-primary;
+    border-radius: $radius-full;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

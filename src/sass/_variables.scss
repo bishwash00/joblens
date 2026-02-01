@@ -1,0 +1,258 @@
+// ============================================
+// VARIABLES - Design System Tokens
+// ============================================
+
+// --------------------------------------------
+// COLOR PALETTE (Dark Mode First)
+// Based on: https://colorhunt.co/palette/f0f5f9c9d6df52616b1e2022
+// --------------------------------------------
+
+// Base colors
+$color-lightest: #f0f5f9;
+$color-light: #c9d6df;
+$color-medium: #52616b;
+$color-dark: #1e2022;
+
+// Extended palette
+$color-darker: #161819;
+$color-darkest: #0d0e0f;
+
+// Primary accent colors
+$color-primary: #4f8ef7;
+$color-primary-light: #6ba3ff;
+$color-primary-dark: #3a7ae8;
+$color-primary-bg: rgba(79, 142, 247, 0.1);
+
+// Secondary accent
+$color-secondary: #7c5cff;
+$color-secondary-light: #9b82ff;
+$color-secondary-dark: #6344e8;
+
+// Semantic colors
+$color-success: #22c55e;
+$color-success-light: #4ade80;
+$color-success-dark: #16a34a;
+$color-success-bg: rgba(34, 197, 94, 0.1);
+
+$color-warning: #f59e0b;
+$color-warning-light: #fbbf24;
+$color-warning-dark: #d97706;
+$color-warning-bg: rgba(245, 158, 11, 0.1);
+
+$color-error: #ef4444;
+$color-error-light: #f87171;
+$color-error-dark: #dc2626;
+$color-error-bg: rgba(239, 68, 68, 0.1);
+
+$color-info: #3b82f6;
+$color-info-light: #60a5fa;
+$color-info-dark: #2563eb;
+
+// Job type colors
+$color-remote: #10b981;
+$color-hybrid: #8b5cf6;
+$color-onsite: #f97316;
+$color-fulltime: $color-primary;
+
+// Chart colors
+$chart-color-1: $color-primary;
+$chart-color-2: $color-secondary;
+$chart-color-3: $color-success;
+$chart-color-4: $color-warning;
+$chart-color-5: #ec4899;
+$chart-color-6: #14b8a6;
+
+// --------------------------------------------
+// DARK MODE COLORS (DEFAULT)
+// --------------------------------------------
+$bg-primary: $color-dark;
+$bg-secondary: $color-darker;
+$bg-tertiary: $color-darkest;
+$bg-card: #252729;
+$bg-card-hover: #2d3033;
+$bg-input: #2a2d30;
+$bg-overlay: rgba(0, 0, 0, 0.7);
+
+$text-primary: $color-lightest;
+$text-secondary: $color-light;
+$text-muted: $color-medium;
+$text-inverse: $color-dark;
+
+$border-color: #3a3d40;
+$border-color-light: #454849;
+$border-color-focus: $color-primary;
+
+// --------------------------------------------
+// TYPOGRAPHY
+// --------------------------------------------
+$font-family-primary:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+$font-family-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+
+// Font sizes (using rem with 16px base)
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-md: 1.125rem; // 18px
+$font-size-lg: 1.25rem; // 20px
+$font-size-xl: 1.5rem; // 24px
+$font-size-2xl: 1.875rem; // 30px
+$font-size-3xl: 2.25rem; // 36px
+$font-size-4xl: 3rem; // 48px
+
+// Font weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line heights
+$line-height-tight: 1.25;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+// Letter spacing
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.025em;
+$letter-spacing-wider: 0.05em;
+
+// --------------------------------------------
+// SPACING
+// --------------------------------------------
+$spacing-0: 0;
+$spacing-1: 0.25rem; // 4px
+$spacing-2: 0.5rem; // 8px
+$spacing-3: 0.75rem; // 12px
+$spacing-4: 1rem; // 16px
+$spacing-5: 1.25rem; // 20px
+$spacing-6: 1.5rem; // 24px
+$spacing-8: 2rem; // 32px
+$spacing-10: 2.5rem; // 40px
+$spacing-12: 3rem; // 48px
+$spacing-16: 4rem; // 64px
+$spacing-20: 5rem; // 80px
+$spacing-24: 6rem; // 96px
+
+// --------------------------------------------
+// LAYOUT
+// --------------------------------------------
+$container-max-width: 1400px;
+$container-padding: $spacing-6;
+$sidebar-width: 320px;
+
+// Grid
+$grid-gap: $spacing-6;
+$grid-gap-sm: $spacing-4;
+
+// --------------------------------------------
+// BORDERS & RADIUS
+// --------------------------------------------
+$border-width: 1px;
+$border-width-thick: 2px;
+
+$radius-sm: 0.375rem; // 6px
+$radius-md: 0.5rem; // 8px
+$radius-lg: 0.75rem; // 12px
+$radius-xl: 1rem; // 16px
+$radius-2xl: 1.5rem; // 24px
+$radius-full: 9999px;
+
+// --------------------------------------------
+// SHADOWS
+// --------------------------------------------
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+$shadow-md:
+  0 4px 6px -1px rgba(0, 0, 0, 0.4),
+  0 2px 4px -1px rgba(0, 0, 0, 0.3);
+$shadow-lg:
+  0 10px 15px -3px rgba(0, 0, 0, 0.4),
+  0 4px 6px -2px rgba(0, 0, 0, 0.3);
+$shadow-xl:
+  0 20px 25px -5px rgba(0, 0, 0, 0.5),
+  0 10px 10px -5px rgba(0, 0, 0, 0.4);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+$shadow-glow: 0 0 20px rgba(79, 142, 247, 0.3);
+$shadow-glow-success: 0 0 20px rgba(34, 197, 94, 0.3);
+
+// --------------------------------------------
+// TRANSITIONS
+// --------------------------------------------
+$transition-fast: 150ms ease;
+$transition-base: 200ms ease;
+$transition-slow: 300ms ease;
+$transition-slower: 500ms ease;
+
+// Specific transitions
+$transition-colors:
+  color $transition-fast,
+  background-color $transition-fast,
+  border-color $transition-fast;
+$transition-transform: transform $transition-base;
+$transition-opacity: opacity $transition-base;
+$transition-shadow: box-shadow $transition-base;
+$transition-all: all $transition-base;
+
+// --------------------------------------------
+// Z-INDEX
+// --------------------------------------------
+$z-base: 1;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+$z-toast: 800;
+$z-max: 9999;
+
+// --------------------------------------------
+// BREAKPOINTS
+// --------------------------------------------
+$breakpoint-xs: 480px;
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// --------------------------------------------
+// COMPONENT-SPECIFIC VARIABLES
+// --------------------------------------------
+
+// Header
+$header-height: 4.5rem;
+$header-height-mobile: 4rem;
+
+// Cards
+$card-padding: $spacing-6;
+$card-padding-sm: $spacing-4;
+$card-radius: $radius-lg;
+$card-shadow: $shadow-md;
+
+// Buttons
+$btn-height-sm: 2rem;
+$btn-height-md: 2.5rem;
+$btn-height-lg: 3rem;
+$btn-padding-x: $spacing-4;
+$btn-radius: $radius-md;
+
+// Inputs
+$input-height: 2.75rem;
+$input-padding-x: $spacing-4;
+$input-radius: $radius-md;
+$input-border-width: $border-width;
+
+// Modal
+$modal-max-width: 720px;
+$modal-padding: $spacing-8;
+
+// Pagination
+$pagination-btn-size: 2.5rem;

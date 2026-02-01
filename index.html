@@ -1,0 +1,1754 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="JobLens - Analyze global tech jobs, salaries, and career opportunities across countries"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="src/sass/main.scss" />
+
+    <title>JobLens | Global Job Market Analyzer</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- ==================== HEADER ==================== -->
+      <header class="header">
+        <div class="header__brand">
+          <div class="header__logo">
+            <svg class="header__logo-icon">
+              <use href="./src/img/icons.svg#icon-search"></use>
+            </svg>
+          </div>
+          <div class="header__title-group">
+            <h1 class="header__title">JobLens</h1>
+            <p class="header__tagline">
+              Analyze global tech jobs &amp; salaries
+            </p>
+          </div>
+        </div>
+
+        <nav class="header__nav">
+          <button
+            class="header__nav-btn header__nav-btn--active"
+            data-view="search"
+          >
+            <svg class="header__nav-icon">
+              <use href="./src/img/icons.svg#icon-search"></use>
+            </svg>
+            <span>Search</span>
+          </button>
+          <button class="header__nav-btn" data-view="analytics">
+            <svg class="header__nav-icon">
+              <use href="./src/img/icons.svg#icon-analytics"></use>
+            </svg>
+            <span>Analytics</span>
+          </button>
+          <button class="header__nav-btn" data-view="bookmarks">
+            <svg class="header__nav-icon">
+              <use href="./src/img/icons.svg#icon-bookmark"></use>
+            </svg>
+            <span>Saved</span>
+            <span class="header__nav-badge" data-bookmark-count>0</span>
+          </button>
+        </nav>
+
+        <div class="header__controls">
+          <div class="currency-selector">
+            <label for="currency-select" class="currency-selector__label"
+              >Currency</label
+            >
+            <div class="currency-selector__wrapper">
+              <select
+                id="currency-select"
+                class="currency-selector__select"
+                data-currency-select
+              >
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="NPR">NPR (₨)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="AUD">AUD ($)</option>
+                <option value="CAD">CAD ($)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="CHF">CHF (Fr)</option>
+              </select>
+              <svg class="currency-selector__icon">
+                <use href="./src/img/icons.svg#icon-chevron-down"></use>
+              </svg>
+            </div>
+          </div>
+
+          <button
+            class="header__theme-toggle"
+            data-theme-toggle
+            aria-label="Toggle theme"
+          >
+            <svg class="header__theme-icon header__theme-icon--dark">
+              <use href="./src/img/icons.svg#icon-moon"></use>
+            </svg>
+            <svg class="header__theme-icon header__theme-icon--light">
+              <use href="./src/img/icons.svg#icon-sun"></use>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- ==================== MAIN CONTENT ==================== -->
+      <main class="main">
+        <!-- ========== SEARCH VIEW ========== -->
+        <section class="search-view" data-view-container="search">
+          <!-- Search Section -->
+          <div class="search">
+            <div class="search__container">
+              <div class="search__input-group">
+                <svg class="search__icon">
+                  <use href="./src/img/icons.svg#icon-search"></use>
+                </svg>
+                <input
+                  type="text"
+                  class="search__input"
+                  id="search-input"
+                  data-search-input
+                  placeholder="Search job roles (e.g., Frontend Developer, Data Scientist...)"
+                  autocomplete="off"
+                />
+                <button
+                  class="search__clear-btn hidden"
+                  data-search-clear
+                  aria-label="Clear search"
+                >
+                  <svg><use href="./src/img/icons.svg#icon-close"></use></svg>
+                </button>
+              </div>
+              <button class="search__btn" data-search-btn>
+                <span>Search Jobs</span>
+                <svg>
+                  <use href="./src/img/icons.svg#icon-arrow-right"></use>
+                </svg>
+              </button>
+            </div>
+
+            <div class="search__filters">
+              <div class="search__filter-group">
+                <label class="search__filter-label">Country</label>
+                <select class="search__filter-select" data-filter-country>
+                  <option value="">All Countries</option>
+                  <option value="US">United States</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="DE">Germany</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="FR">France</option>
+                  <option value="NL">Netherlands</option>
+                  <option value="SG">Singapore</option>
+                  <option value="IN">India</option>
+                  <option value="JP">Japan</option>
+                </select>
+              </div>
+
+              <div class="search__filter-group">
+                <label class="search__filter-label">Job Type</label>
+                <select class="search__filter-select" data-filter-type>
+                  <option value="">All Types</option>
+                  <option value="remote">Remote</option>
+                  <option value="onsite">On-site</option>
+                  <option value="hybrid">Hybrid</option>
+                </select>
+              </div>
+
+              <div class="search__filter-group">
+                <label class="search__filter-label">Experience</label>
+                <select class="search__filter-select" data-filter-experience>
+                  <option value="">All Levels</option>
+                  <option value="entry">Entry Level</option>
+                  <option value="mid">Mid Level</option>
+                  <option value="senior">Senior Level</option>
+                  <option value="lead">Lead / Principal</option>
+                </select>
+              </div>
+
+              <div class="search__filter-group">
+                <label class="search__filter-label">Sort By</label>
+                <select class="search__filter-select" data-filter-sort>
+                  <option value="relevance">Relevance</option>
+                  <option value="salary-high">Salary: High to Low</option>
+                  <option value="salary-low">Salary: Low to High</option>
+                  <option value="date">Most Recent</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="search__suggestions hidden" data-search-suggestions>
+              <p class="search__suggestions-title">Popular Searches</p>
+              <div class="search__suggestions-list">
+                <button
+                  class="search__suggestion-tag"
+                  data-suggestion="Frontend Developer"
+                >
+                  Frontend Developer
+                </button>
+                <button
+                  class="search__suggestion-tag"
+                  data-suggestion="Backend Engineer"
+                >
+                  Backend Engineer
+                </button>
+                <button
+                  class="search__suggestion-tag"
+                  data-suggestion="Data Scientist"
+                >
+                  Data Scientist
+                </button>
+                <button
+                  class="search__suggestion-tag"
+                  data-suggestion="DevOps Engineer"
+                >
+                  DevOps Engineer
+                </button>
+                <button
+                  class="search__suggestion-tag"
+                  data-suggestion="Full Stack Developer"
+                >
+                  Full Stack Developer
+                </button>
+                <button
+                  class="search__suggestion-tag"
+                  data-suggestion="Machine Learning Engineer"
+                >
+                  ML Engineer
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="results">
+            <div class="results__header">
+              <div class="results__info">
+                <h2 class="results__title">Job Results</h2>
+                <p class="results__count" data-results-count>
+                  Showing <strong>0</strong> jobs
+                </p>
+              </div>
+              <div class="results__view-toggle">
+                <button
+                  class="results__view-btn results__view-btn--active"
+                  data-view-mode="grid"
+                  aria-label="Grid view"
+                >
+                  <svg><use href="./src/img/icons.svg#icon-grid"></use></svg>
+                </button>
+                <button
+                  class="results__view-btn"
+                  data-view-mode="list"
+                  aria-label="List view"
+                >
+                  <svg><use href="./src/img/icons.svg#icon-list"></use></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="results__loading hidden" data-results-loading>
+              <div class="spinner">
+                <div class="spinner__ring"></div>
+              </div>
+              <p class="results__loading-text">
+                Searching global job markets...
+              </p>
+            </div>
+
+            <!-- Empty State -->
+            <div class="results__empty" data-results-empty>
+              <div class="results__empty-icon">
+                <svg><use href="./src/img/icons.svg#icon-search"></use></svg>
+              </div>
+              <h3 class="results__empty-title">Start Your Job Search</h3>
+              <p class="results__empty-text">
+                Search for a job role to see opportunities from around the world
+              </p>
+            </div>
+
+            <!-- Error State -->
+            <div class="results__error hidden" data-results-error>
+              <div class="results__error-icon">
+                <svg><use href="./src/img/icons.svg#icon-alert"></use></svg>
+              </div>
+              <h3 class="results__error-title">Something went wrong</h3>
+              <p class="results__error-text" data-error-message>
+                Unable to fetch job listings. Please try again.
+              </p>
+              <button class="results__error-btn" data-retry-btn>
+                Try Again
+              </button>
+            </div>
+
+            <!-- Job Cards Container -->
+            <div class="results__grid hidden" data-results-container>
+              <!-- Job Card 1 -->
+              <article class="job-card" data-job-id="1">
+                <div class="job-card__header">
+                  <div class="job-card__company-logo" data-company-logo>
+                    <span>G</span>
+                  </div>
+                  <div class="job-card__meta">
+                    <span class="job-card__company">Google</span>
+                    <span class="job-card__location">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-location"></use>
+                      </svg>
+                      United States
+                    </span>
+                  </div>
+                  <button
+                    class="job-card__bookmark"
+                    data-bookmark-btn
+                    aria-label="Bookmark job"
+                  >
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-bookmark"></use>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="job-card__body">
+                  <h3 class="job-card__title">Senior Frontend Developer</h3>
+                  <p class="job-card__description">
+                    Build next-generation web experiences using React,
+                    TypeScript, and modern web technologies...
+                  </p>
+
+                  <div class="job-card__tags">
+                    <span class="job-card__tag job-card__tag--remote"
+                      >Remote</span
+                    >
+                    <span class="job-card__tag job-card__tag--fulltime"
+                      >Full-time</span
+                    >
+                    <span class="job-card__tag">React</span>
+                    <span class="job-card__tag">TypeScript</span>
+                  </div>
+                </div>
+
+                <div class="job-card__footer">
+                  <div class="job-card__salary">
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-dollar"></use>
+                    </svg>
+                    <span class="job-card__salary-amount" data-salary
+                      >$120,000 - $180,000</span
+                    >
+                  </div>
+                  <span class="job-card__posted">2 days ago</span>
+                </div>
+              </article>
+
+              <!-- Job Card 2 -->
+              <article class="job-card" data-job-id="2">
+                <div class="job-card__header">
+                  <div class="job-card__company-logo" data-company-logo>
+                    <span>M</span>
+                  </div>
+                  <div class="job-card__meta">
+                    <span class="job-card__company">Microsoft</span>
+                    <span class="job-card__location">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-location"></use>
+                      </svg>
+                      Germany
+                    </span>
+                  </div>
+                  <button
+                    class="job-card__bookmark"
+                    data-bookmark-btn
+                    aria-label="Bookmark job"
+                  >
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-bookmark"></use>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="job-card__body">
+                  <h3 class="job-card__title">Data Scientist</h3>
+                  <p class="job-card__description">
+                    Join our AI team to build machine learning models and data
+                    pipelines that power intelligent features...
+                  </p>
+
+                  <div class="job-card__tags">
+                    <span class="job-card__tag job-card__tag--hybrid"
+                      >Hybrid</span
+                    >
+                    <span class="job-card__tag job-card__tag--fulltime"
+                      >Full-time</span
+                    >
+                    <span class="job-card__tag">Python</span>
+                    <span class="job-card__tag">ML</span>
+                  </div>
+                </div>
+
+                <div class="job-card__footer">
+                  <div class="job-card__salary">
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-dollar"></use>
+                    </svg>
+                    <span class="job-card__salary-amount" data-salary
+                      >€85,000 - €120,000</span
+                    >
+                  </div>
+                  <span class="job-card__posted">1 week ago</span>
+                </div>
+              </article>
+
+              <!-- Job Card 3 -->
+              <article class="job-card" data-job-id="3">
+                <div class="job-card__header">
+                  <div class="job-card__company-logo" data-company-logo>
+                    <span>A</span>
+                  </div>
+                  <div class="job-card__meta">
+                    <span class="job-card__company">Amazon</span>
+                    <span class="job-card__location">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-location"></use>
+                      </svg>
+                      United Kingdom
+                    </span>
+                  </div>
+                  <button
+                    class="job-card__bookmark job-card__bookmark--active"
+                    data-bookmark-btn
+                    aria-label="Remove bookmark"
+                  >
+                    <svg>
+                      <use
+                        href="./src/img/icons.svg#icon-bookmark-filled"
+                      ></use>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="job-card__body">
+                  <h3 class="job-card__title">Backend Engineer</h3>
+                  <p class="job-card__description">
+                    Design and build scalable distributed systems serving
+                    millions of customers worldwide...
+                  </p>
+
+                  <div class="job-card__tags">
+                    <span class="job-card__tag job-card__tag--onsite"
+                      >On-site</span
+                    >
+                    <span class="job-card__tag job-card__tag--fulltime"
+                      >Full-time</span
+                    >
+                    <span class="job-card__tag">Java</span>
+                    <span class="job-card__tag">AWS</span>
+                  </div>
+                </div>
+
+                <div class="job-card__footer">
+                  <div class="job-card__salary">
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-dollar"></use>
+                    </svg>
+                    <span class="job-card__salary-amount" data-salary
+                      >£75,000 - £110,000</span
+                    >
+                  </div>
+                  <span class="job-card__posted">3 days ago</span>
+                </div>
+              </article>
+
+              <!-- Job Card 4 -->
+              <article class="job-card" data-job-id="4">
+                <div class="job-card__header">
+                  <div class="job-card__company-logo" data-company-logo>
+                    <span>S</span>
+                  </div>
+                  <div class="job-card__meta">
+                    <span class="job-card__company">Spotify</span>
+                    <span class="job-card__location">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-location"></use>
+                      </svg>
+                      Sweden
+                    </span>
+                  </div>
+                  <button
+                    class="job-card__bookmark"
+                    data-bookmark-btn
+                    aria-label="Bookmark job"
+                  >
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-bookmark"></use>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="job-card__body">
+                  <h3 class="job-card__title">Full Stack Developer</h3>
+                  <p class="job-card__description">
+                    Create innovative features for millions of music lovers
+                    using cutting-edge web technologies...
+                  </p>
+
+                  <div class="job-card__tags">
+                    <span class="job-card__tag job-card__tag--remote"
+                      >Remote</span
+                    >
+                    <span class="job-card__tag job-card__tag--fulltime"
+                      >Full-time</span
+                    >
+                    <span class="job-card__tag">Node.js</span>
+                    <span class="job-card__tag">React</span>
+                  </div>
+                </div>
+
+                <div class="job-card__footer">
+                  <div class="job-card__salary">
+                    <svg>
+                      <use href="./src/img/icons.svg#icon-dollar"></use>
+                    </svg>
+                    <span class="job-card__salary-amount" data-salary
+                      >SEK 650,000 - 850,000</span
+                    >
+                  </div>
+                  <span class="job-card__posted">5 days ago</span>
+                </div>
+              </article>
+
+              <!-- More job cards would be dynamically rendered here -->
+            </div>
+
+            <!-- Pagination -->
+            <nav
+              class="pagination hidden"
+              data-pagination
+              aria-label="Results pagination"
+            >
+              <button
+                class="pagination__btn pagination__btn--prev"
+                data-pagination-prev
+                disabled
+              >
+                <svg>
+                  <use href="./src/img/icons.svg#icon-arrow-left"></use>
+                </svg>
+                <span>Previous</span>
+              </button>
+
+              <div class="pagination__pages" data-pagination-pages>
+                <button
+                  class="pagination__page pagination__page--active"
+                  data-page="1"
+                >
+                  1
+                </button>
+                <button class="pagination__page" data-page="2">2</button>
+                <button class="pagination__page" data-page="3">3</button>
+                <span class="pagination__ellipsis">...</span>
+                <button class="pagination__page" data-page="10">10</button>
+              </div>
+
+              <button
+                class="pagination__btn pagination__btn--next"
+                data-pagination-next
+              >
+                <span>Next</span>
+                <svg>
+                  <use href="./src/img/icons.svg#icon-arrow-right"></use>
+                </svg>
+              </button>
+            </nav>
+          </div>
+        </section>
+
+        <!-- ========== ANALYTICS VIEW ========== -->
+        <section class="analytics-view hidden" data-view-container="analytics">
+          <div class="analytics">
+            <div class="analytics__header">
+              <h2 class="analytics__title">Job Market Analytics</h2>
+              <p class="analytics__subtitle">
+                Insights for <span data-analytics-role>Frontend Developer</span>
+              </p>
+            </div>
+
+            <!-- Stats Summary -->
+            <div class="analytics__stats">
+              <div class="stat-card">
+                <div class="stat-card__icon stat-card__icon--jobs">
+                  <svg>
+                    <use href="./src/img/icons.svg#icon-briefcase"></use>
+                  </svg>
+                </div>
+                <div class="stat-card__content">
+                  <span class="stat-card__value" data-stat-jobs>1,247</span>
+                  <span class="stat-card__label">Total Jobs</span>
+                </div>
+                <span class="stat-card__trend stat-card__trend--up">
+                  <svg>
+                    <use href="./src/img/icons.svg#icon-trend-up"></use>
+                  </svg>
+                  12%
+                </span>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card__icon stat-card__icon--salary">
+                  <svg><use href="./src/img/icons.svg#icon-dollar"></use></svg>
+                </div>
+                <div class="stat-card__content">
+                  <span class="stat-card__value" data-stat-salary
+                    >$125,000</span
+                  >
+                  <span class="stat-card__label">Avg. Salary</span>
+                </div>
+                <span class="stat-card__trend stat-card__trend--up">
+                  <svg>
+                    <use href="./src/img/icons.svg#icon-trend-up"></use>
+                  </svg>
+                  8%
+                </span>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card__icon stat-card__icon--countries">
+                  <svg><use href="./src/img/icons.svg#icon-globe"></use></svg>
+                </div>
+                <div class="stat-card__content">
+                  <span class="stat-card__value" data-stat-countries>23</span>
+                  <span class="stat-card__label">Countries</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card__icon stat-card__icon--remote">
+                  <svg><use href="./src/img/icons.svg#icon-monitor"></use></svg>
+                </div>
+                <div class="stat-card__content">
+                  <span class="stat-card__value" data-stat-remote>68%</span>
+                  <span class="stat-card__label">Remote Jobs</span>
+                </div>
+                <span class="stat-card__trend stat-card__trend--up">
+                  <svg>
+                    <use href="./src/img/icons.svg#icon-trend-up"></use>
+                  </svg>
+                  15%
+                </span>
+              </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="analytics__charts">
+              <!-- Demand by Country Chart -->
+              <div class="chart-card">
+                <div class="chart-card__header">
+                  <h3 class="chart-card__title">Job Demand by Country</h3>
+                  <p class="chart-card__subtitle">
+                    Number of job postings per country
+                  </p>
+                </div>
+                <div class="chart-card__body">
+                  <div class="chart-placeholder" data-chart="demand">
+                    <!-- Chart will be rendered here by JS -->
+                    <div class="demand-bars">
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇺🇸</span>
+                          <span class="demand-bar__country">United States</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 100%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">320</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇩🇪</span>
+                          <span class="demand-bar__country">Germany</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 44%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">140</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇬🇧</span>
+                          <span class="demand-bar__country"
+                            >United Kingdom</span
+                          >
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 38%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">120</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇨🇦</span>
+                          <span class="demand-bar__country">Canada</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 31%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">98</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇳🇱</span>
+                          <span class="demand-bar__country">Netherlands</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 25%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">80</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇦🇺</span>
+                          <span class="demand-bar__country">Australia</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 22%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">70</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇫🇷</span>
+                          <span class="demand-bar__country">France</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 19%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">60</span>
+                      </div>
+                      <div class="demand-bar">
+                        <div class="demand-bar__label">
+                          <span class="demand-bar__flag">🇸🇬</span>
+                          <span class="demand-bar__country">Singapore</span>
+                        </div>
+                        <div class="demand-bar__track">
+                          <div
+                            class="demand-bar__fill"
+                            style="--width: 14%"
+                          ></div>
+                        </div>
+                        <span class="demand-bar__value">45</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Salary by Country Chart -->
+              <div class="chart-card">
+                <div class="chart-card__header">
+                  <h3 class="chart-card__title">Average Salary by Country</h3>
+                  <p class="chart-card__subtitle">
+                    Converted to <span data-salary-currency>USD</span>
+                  </p>
+                </div>
+                <div class="chart-card__body">
+                  <div class="chart-placeholder" data-chart="salary">
+                    <!-- Chart will be rendered here by JS -->
+                    <div class="salary-bars">
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇺🇸</span>
+                          <span class="salary-bar__country">USA</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 100%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$150,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇨🇭</span>
+                          <span class="salary-bar__country">Switzerland</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 93%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$140,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇦🇺</span>
+                          <span class="salary-bar__country">Australia</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 80%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$120,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇬🇧</span>
+                          <span class="salary-bar__country">UK</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 73%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$110,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇩🇪</span>
+                          <span class="salary-bar__country">Germany</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 67%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$100,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇨🇦</span>
+                          <span class="salary-bar__country">Canada</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 63%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$95,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇳🇱</span>
+                          <span class="salary-bar__country">Netherlands</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 60%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$90,000</span>
+                      </div>
+                      <div class="salary-bar">
+                        <div class="salary-bar__label">
+                          <span class="salary-bar__flag">🇸🇬</span>
+                          <span class="salary-bar__country">Singapore</span>
+                        </div>
+                        <div class="salary-bar__track">
+                          <div
+                            class="salary-bar__fill"
+                            style="--width: 57%"
+                          ></div>
+                        </div>
+                        <span class="salary-bar__value">$85,000</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Job Type Distribution -->
+              <div class="chart-card chart-card--small">
+                <div class="chart-card__header">
+                  <h3 class="chart-card__title">Job Type Distribution</h3>
+                </div>
+                <div class="chart-card__body">
+                  <div class="chart-placeholder" data-chart="type">
+                    <div class="donut-chart">
+                      <div class="donut-chart__visual">
+                        <svg viewBox="0 0 100 100" class="donut-chart__svg">
+                          <circle
+                            class="donut-chart__ring donut-chart__ring--remote"
+                            cx="50"
+                            cy="50"
+                            r="40"
+                            stroke-dasharray="168 252"
+                            stroke-dashoffset="0"
+                          />
+                          <circle
+                            class="donut-chart__ring donut-chart__ring--hybrid"
+                            cx="50"
+                            cy="50"
+                            r="40"
+                            stroke-dasharray="75 252"
+                            stroke-dashoffset="-168"
+                          />
+                          <circle
+                            class="donut-chart__ring donut-chart__ring--onsite"
+                            cx="50"
+                            cy="50"
+                            r="40"
+                            stroke-dasharray="9 252"
+                            stroke-dashoffset="-243"
+                          />
+                        </svg>
+                        <div class="donut-chart__center">
+                          <span class="donut-chart__total">1,247</span>
+                          <span class="donut-chart__label">Jobs</span>
+                        </div>
+                      </div>
+                      <div class="donut-chart__legend">
+                        <div class="donut-chart__legend-item">
+                          <span
+                            class="donut-chart__legend-color donut-chart__legend-color--remote"
+                          ></span>
+                          <span class="donut-chart__legend-label">Remote</span>
+                          <span class="donut-chart__legend-value">67%</span>
+                        </div>
+                        <div class="donut-chart__legend-item">
+                          <span
+                            class="donut-chart__legend-color donut-chart__legend-color--hybrid"
+                          ></span>
+                          <span class="donut-chart__legend-label">Hybrid</span>
+                          <span class="donut-chart__legend-value">30%</span>
+                        </div>
+                        <div class="donut-chart__legend-item">
+                          <span
+                            class="donut-chart__legend-color donut-chart__legend-color--onsite"
+                          ></span>
+                          <span class="donut-chart__legend-label">On-site</span>
+                          <span class="donut-chart__legend-value">3%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Top Skills -->
+              <div class="chart-card chart-card--small">
+                <div class="chart-card__header">
+                  <h3 class="chart-card__title">Top Required Skills</h3>
+                </div>
+                <div class="chart-card__body">
+                  <div class="chart-placeholder" data-chart="skills">
+                    <div class="skills-list">
+                      <div class="skill-item">
+                        <span class="skill-item__name">JavaScript</span>
+                        <div class="skill-item__bar">
+                          <div
+                            class="skill-item__fill"
+                            style="--width: 95%"
+                          ></div>
+                        </div>
+                        <span class="skill-item__percent">95%</span>
+                      </div>
+                      <div class="skill-item">
+                        <span class="skill-item__name">React</span>
+                        <div class="skill-item__bar">
+                          <div
+                            class="skill-item__fill"
+                            style="--width: 88%"
+                          ></div>
+                        </div>
+                        <span class="skill-item__percent">88%</span>
+                      </div>
+                      <div class="skill-item">
+                        <span class="skill-item__name">TypeScript</span>
+                        <div class="skill-item__bar">
+                          <div
+                            class="skill-item__fill"
+                            style="--width: 78%"
+                          ></div>
+                        </div>
+                        <span class="skill-item__percent">78%</span>
+                      </div>
+                      <div class="skill-item">
+                        <span class="skill-item__name">CSS/SCSS</span>
+                        <div class="skill-item__bar">
+                          <div
+                            class="skill-item__fill"
+                            style="--width: 72%"
+                          ></div>
+                        </div>
+                        <span class="skill-item__percent">72%</span>
+                      </div>
+                      <div class="skill-item">
+                        <span class="skill-item__name">Node.js</span>
+                        <div class="skill-item__bar">
+                          <div
+                            class="skill-item__fill"
+                            style="--width: 65%"
+                          ></div>
+                        </div>
+                        <span class="skill-item__percent">65%</span>
+                      </div>
+                      <div class="skill-item">
+                        <span class="skill-item__name">Git</span>
+                        <div class="skill-item__bar">
+                          <div
+                            class="skill-item__fill"
+                            style="--width: 92%"
+                          ></div>
+                        </div>
+                        <span class="skill-item__percent">92%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Salary Converter -->
+            <div class="salary-converter">
+              <div class="salary-converter__header">
+                <h3 class="salary-converter__title">Salary Converter</h3>
+                <p class="salary-converter__subtitle">
+                  See how salaries compare in your local currency
+                </p>
+              </div>
+              <div class="salary-converter__body">
+                <div class="salary-converter__input-group">
+                  <label for="salary-input" class="salary-converter__label"
+                    >Enter Salary</label
+                  >
+                  <div class="salary-converter__input-wrapper">
+                    <input
+                      type="number"
+                      id="salary-input"
+                      class="salary-converter__input"
+                      placeholder="100000"
+                      data-salary-input
+                    />
+                    <select class="salary-converter__select" data-from-currency>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                      <option value="CHF">CHF</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="salary-converter__arrow">
+                  <svg>
+                    <use href="./src/img/icons.svg#icon-arrow-right"></use>
+                  </svg>
+                </div>
+                <div class="salary-converter__result">
+                  <span class="salary-converter__result-label"
+                    >Converted Amount</span
+                  >
+                  <span
+                    class="salary-converter__result-value"
+                    data-converted-salary
+                    >₨ 13,350,000</span
+                  >
+                  <span
+                    class="salary-converter__result-currency"
+                    data-result-currency
+                    >NPR (Nepali Rupee)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== BOOKMARKS VIEW ========== -->
+        <section class="bookmarks-view hidden" data-view-container="bookmarks">
+          <div class="bookmarks">
+            <div class="bookmarks__header">
+              <h2 class="bookmarks__title">Saved Jobs</h2>
+              <p class="bookmarks__subtitle">
+                Your career targets and saved opportunities
+              </p>
+            </div>
+
+            <div class="bookmarks__tabs">
+              <button
+                class="bookmarks__tab bookmarks__tab--active"
+                data-tab="jobs"
+              >
+                <svg><use href="./src/img/icons.svg#icon-briefcase"></use></svg>
+                <span>Jobs</span>
+                <span class="bookmarks__tab-count" data-jobs-count>3</span>
+              </button>
+              <button class="bookmarks__tab" data-tab="countries">
+                <svg><use href="./src/img/icons.svg#icon-globe"></use></svg>
+                <span>Countries</span>
+                <span class="bookmarks__tab-count" data-countries-count>2</span>
+              </button>
+              <button class="bookmarks__tab" data-tab="roles">
+                <svg><use href="./src/img/icons.svg#icon-briefcase"></use></svg>
+                <span>Roles</span>
+                <span class="bookmarks__tab-count" data-roles-count>4</span>
+              </button>
+            </div>
+
+            <!-- Jobs List -->
+            <div class="bookmarks__content" data-tab-content="jobs">
+              <div class="bookmarks__list" data-bookmarks-list>
+                <!-- Bookmark Item 1 -->
+                <article class="bookmark-item" data-bookmark-id="1">
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon">
+                      <span>A</span>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Backend Engineer</h4>
+                      <p class="bookmark-item__meta">
+                        <span>Amazon</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>🇬🇧 United Kingdom</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">On-site</span>
+                        <span class="bookmark-item__tag">£75k - £110k</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-view-job
+                      aria-label="View job details"
+                    >
+                      <svg><use href="./src/img/icons.svg#icon-eye"></use></svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Bookmark Item 2 -->
+                <article class="bookmark-item" data-bookmark-id="2">
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon">
+                      <span>G</span>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">
+                        Senior Frontend Developer
+                      </h4>
+                      <p class="bookmark-item__meta">
+                        <span>Google</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>🇺🇸 United States</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">Remote</span>
+                        <span class="bookmark-item__tag">$120k - $180k</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-view-job
+                      aria-label="View job details"
+                    >
+                      <svg><use href="./src/img/icons.svg#icon-eye"></use></svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <!-- Bookmark Item 3 -->
+                <article class="bookmark-item" data-bookmark-id="3">
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon">
+                      <span>N</span>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Full Stack Engineer</h4>
+                      <p class="bookmark-item__meta">
+                        <span>Netflix</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>🇺🇸 United States</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">Hybrid</span>
+                        <span class="bookmark-item__tag">$140k - $200k</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-view-job
+                      aria-label="View job details"
+                    >
+                      <svg><use href="./src/img/icons.svg#icon-eye"></use></svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Countries List -->
+            <div class="bookmarks__content hidden" data-tab-content="countries">
+              <div class="bookmarks__list" data-countries-list>
+                <article
+                  class="bookmark-item bookmark-item--country"
+                  data-country-id="DE"
+                >
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon bookmark-item__icon--flag">
+                      <span>🇩🇪</span>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Germany</h4>
+                      <p class="bookmark-item__meta">
+                        <span>140 jobs</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>Avg. €85,000</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">Europe</span>
+                        <span class="bookmark-item__tag">Tech Hub</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-view-country
+                      aria-label="View country details"
+                    >
+                      <svg><use href="./src/img/icons.svg#icon-eye"></use></svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <article
+                  class="bookmark-item bookmark-item--country"
+                  data-country-id="NL"
+                >
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon bookmark-item__icon--flag">
+                      <span>🇳🇱</span>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Netherlands</h4>
+                      <p class="bookmark-item__meta">
+                        <span>80 jobs</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>Avg. €75,000</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">Europe</span>
+                        <span class="bookmark-item__tag">English-friendly</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-view-country
+                      aria-label="View country details"
+                    >
+                      <svg><use href="./src/img/icons.svg#icon-eye"></use></svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Roles List -->
+            <div class="bookmarks__content hidden" data-tab-content="roles">
+              <div class="bookmarks__list" data-roles-list>
+                <article
+                  class="bookmark-item bookmark-item--role"
+                  data-role-id="frontend"
+                >
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon bookmark-item__icon--role">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-code"></use>
+                      </svg>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Frontend Developer</h4>
+                      <p class="bookmark-item__meta">
+                        <span>320 global jobs</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>Avg. $95,000</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">React</span>
+                        <span class="bookmark-item__tag">TypeScript</span>
+                        <span class="bookmark-item__tag">Vue</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-search-role
+                      aria-label="Search this role"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-search"></use>
+                      </svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <article
+                  class="bookmark-item bookmark-item--role"
+                  data-role-id="backend"
+                >
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon bookmark-item__icon--role">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-server"></use>
+                      </svg>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Backend Engineer</h4>
+                      <p class="bookmark-item__meta">
+                        <span>280 global jobs</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>Avg. $110,000</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">Node.js</span>
+                        <span class="bookmark-item__tag">Python</span>
+                        <span class="bookmark-item__tag">Go</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-search-role
+                      aria-label="Search this role"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-search"></use>
+                      </svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <article
+                  class="bookmark-item bookmark-item--role"
+                  data-role-id="data-scientist"
+                >
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon bookmark-item__icon--role">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-stats"></use>
+                      </svg>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">Data Scientist</h4>
+                      <p class="bookmark-item__meta">
+                        <span>195 global jobs</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>Avg. $125,000</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">Python</span>
+                        <span class="bookmark-item__tag">ML</span>
+                        <span class="bookmark-item__tag">SQL</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-search-role
+                      aria-label="Search this role"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-search"></use>
+                      </svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+
+                <article
+                  class="bookmark-item bookmark-item--role"
+                  data-role-id="devops"
+                >
+                  <div class="bookmark-item__main">
+                    <div class="bookmark-item__icon bookmark-item__icon--role">
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-settings"></use>
+                      </svg>
+                    </div>
+                    <div class="bookmark-item__info">
+                      <h4 class="bookmark-item__title">DevOps Engineer</h4>
+                      <p class="bookmark-item__meta">
+                        <span>165 global jobs</span>
+                        <span class="bookmark-item__separator">•</span>
+                        <span>Avg. $115,000</span>
+                      </p>
+                      <div class="bookmark-item__tags">
+                        <span class="bookmark-item__tag">AWS</span>
+                        <span class="bookmark-item__tag">Docker</span>
+                        <span class="bookmark-item__tag">K8s</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-item__actions">
+                    <button
+                      class="bookmark-item__btn"
+                      data-search-role
+                      aria-label="Search this role"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-search"></use>
+                      </svg>
+                    </button>
+                    <button
+                      class="bookmark-item__btn bookmark-item__btn--remove"
+                      data-remove-bookmark
+                      aria-label="Remove bookmark"
+                    >
+                      <svg>
+                        <use href="./src/img/icons.svg#icon-trash"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="bookmarks__empty hidden" data-bookmarks-empty>
+              <div class="bookmarks__empty-icon">
+                <svg><use href="./src/img/icons.svg#icon-bookmark"></use></svg>
+              </div>
+              <h3 class="bookmarks__empty-title">No saved items yet</h3>
+              <p class="bookmarks__empty-text">
+                Start searching for jobs and save the ones you're interested in
+              </p>
+              <button class="bookmarks__empty-btn" data-goto-search>
+                Start Searching
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== JOB DETAILS MODAL ========== -->
+        <div class="job-modal hidden" data-job-modal>
+          <div class="job-modal__overlay" data-modal-close></div>
+          <div class="job-modal__content">
+            <button
+              class="job-modal__close"
+              data-modal-close
+              aria-label="Close modal"
+            >
+              <svg><use href="./src/img/icons.svg#icon-close"></use></svg>
+            </button>
+
+            <div class="job-modal__header">
+              <div class="job-modal__company">
+                <div class="job-modal__company-logo" data-modal-logo>
+                  <span>G</span>
+                </div>
+                <div class="job-modal__company-info">
+                  <h2 class="job-modal__title" data-modal-title>
+                    Senior Frontend Developer
+                  </h2>
+                  <p class="job-modal__company-name" data-modal-company>
+                    Google
+                  </p>
+                </div>
+              </div>
+              <button
+                class="job-modal__bookmark"
+                data-modal-bookmark
+                aria-label="Bookmark job"
+              >
+                <svg><use href="./src/img/icons.svg#icon-bookmark"></use></svg>
+                <span>Save Job</span>
+              </button>
+            </div>
+
+            <div class="job-modal__meta">
+              <div class="job-modal__meta-item">
+                <svg><use href="./src/img/icons.svg#icon-location"></use></svg>
+                <span data-modal-location>San Francisco, United States</span>
+                <span class="job-modal__flag" data-modal-flag>🇺🇸</span>
+              </div>
+              <div class="job-modal__meta-item">
+                <svg><use href="./src/img/icons.svg#icon-dollar"></use></svg>
+                <span data-modal-salary>$120,000 - $180,000 / year</span>
+              </div>
+              <div class="job-modal__meta-item">
+                <svg><use href="./src/img/icons.svg#icon-calendar"></use></svg>
+                <span data-modal-posted>Posted 2 days ago</span>
+              </div>
+            </div>
+
+            <div class="job-modal__tags" data-modal-tags>
+              <span class="job-modal__tag job-modal__tag--remote">Remote</span>
+              <span class="job-modal__tag job-modal__tag--fulltime"
+                >Full-time</span
+              >
+              <span class="job-modal__tag">Senior Level</span>
+            </div>
+
+            <div class="job-modal__section">
+              <h3 class="job-modal__section-title">Job Description</h3>
+              <div class="job-modal__description" data-modal-description>
+                <p>
+                  We are looking for a talented Senior Frontend Developer to
+                  join our team and help build the next generation of web
+                  experiences. You will work closely with designers, product
+                  managers, and backend engineers to deliver high-quality,
+                  performant applications.
+                </p>
+
+                <h4>Responsibilities:</h4>
+                <ul>
+                  <li>
+                    Design and implement user interfaces using React and
+                    TypeScript
+                  </li>
+                  <li>
+                    Collaborate with UX designers to translate designs into
+                    pixel-perfect implementations
+                  </li>
+                  <li>Write clean, maintainable, and well-tested code</li>
+                  <li>
+                    Optimize applications for maximum speed and scalability
+                  </li>
+                  <li>
+                    Mentor junior developers and participate in code reviews
+                  </li>
+                </ul>
+
+                <h4>Requirements:</h4>
+                <ul>
+                  <li>5+ years of experience in frontend development</li>
+                  <li>Expert knowledge of React, TypeScript, and modern CSS</li>
+                  <li>
+                    Experience with state management (Redux, MobX, or similar)
+                  </li>
+                  <li>Strong understanding of web performance optimization</li>
+                  <li>Excellent communication skills</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="job-modal__section">
+              <h3 class="job-modal__section-title">Salary Comparison</h3>
+              <div
+                class="job-modal__salary-comparison"
+                data-modal-salary-comparison
+              >
+                <div class="salary-comparison__item">
+                  <span class="salary-comparison__currency">USD</span>
+                  <span class="salary-comparison__value"
+                    >$120,000 - $180,000</span
+                  >
+                </div>
+                <div class="salary-comparison__item">
+                  <span class="salary-comparison__currency">EUR</span>
+                  <span class="salary-comparison__value"
+                    >€110,000 - €165,000</span
+                  >
+                </div>
+                <div class="salary-comparison__item">
+                  <span class="salary-comparison__currency">GBP</span>
+                  <span class="salary-comparison__value"
+                    >£95,000 - £142,000</span
+                  >
+                </div>
+                <div
+                  class="salary-comparison__item salary-comparison__item--highlight"
+                >
+                  <span class="salary-comparison__currency">NPR</span>
+                  <span class="salary-comparison__value"
+                    >₨16,000,000 - ₨24,000,000</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="job-modal__section">
+              <h3 class="job-modal__section-title">Required Skills</h3>
+              <div class="job-modal__skills" data-modal-skills>
+                <span class="job-modal__skill">JavaScript</span>
+                <span class="job-modal__skill">React</span>
+                <span class="job-modal__skill">TypeScript</span>
+                <span class="job-modal__skill">CSS/SCSS</span>
+                <span class="job-modal__skill">Node.js</span>
+                <span class="job-modal__skill">Git</span>
+                <span class="job-modal__skill">REST APIs</span>
+                <span class="job-modal__skill">Testing</span>
+              </div>
+            </div>
+
+            <div class="job-modal__actions">
+              <a
+                href="#"
+                class="job-modal__apply-btn"
+                data-modal-apply
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Apply Now
+                <svg>
+                  <use href="./src/img/icons.svg#icon-external-link"></use>
+                </svg>
+              </a>
+              <button class="job-modal__share-btn" data-modal-share>
+                <svg><use href="./src/img/icons.svg#icon-share"></use></svg>
+                Share
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==================== FOOTER ==================== -->
+      <footer class="footer">
+        <div class="footer__content">
+          <div class="footer__brand">
+            <span class="footer__logo">JobLens</span>
+            <p class="footer__tagline">Making global job search easier</p>
+          </div>
+          <div class="footer__links">
+            <a href="#" class="footer__link">About</a>
+            <a href="#" class="footer__link">Privacy</a>
+            <a href="#" class="footer__link">Terms</a>
+            <a href="#" class="footer__link">Contact</a>
+          </div>
+          <p class="footer__copyright">
+            &copy; 2026 JobLens. All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+      <!-- Toast Notifications Container -->
+      <div class="toast-container" data-toast-container aria-live="polite">
+        <!-- Toasts will be dynamically added here -->
+        <div class="toast toast--success hidden" data-toast>
+          <svg class="toast__icon">
+            <use href="./src/img/icons.svg#icon-checkmark"></use>
+          </svg>
+          <span class="toast__message">Job saved successfully!</span>
+          <button class="toast__close" aria-label="Close notification">
+            <svg><use href="./src/img/icons.svg#icon-close"></use></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS will be loaded here -->
+    <!-- <script type="module" src="src/js/controller.js"></script> -->
+  </body>
+</html>

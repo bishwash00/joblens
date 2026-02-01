@@ -1,0 +1,263 @@
+// ============================================
+// HEADER - Navigation & Branding
+// ============================================
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-6;
+  height: $header-height;
+  padding: 0 $container-padding;
+  background-color: rgba($bg-primary, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: $border-width solid $border-color;
+
+  @media (max-width: $breakpoint-md) {
+    height: $header-height-mobile;
+    padding: 0 $spacing-4;
+    gap: $spacing-3;
+  }
+
+  // --------------------------------------------
+  // BRAND SECTION
+  // --------------------------------------------
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, $color-primary, $color-secondary);
+    border-radius: $radius-lg;
+
+    @media (max-width: $breakpoint-md) {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__logo-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $text-primary;
+
+    @media (max-width: $breakpoint-md) {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: $breakpoint-sm) {
+      display: none;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    letter-spacing: $letter-spacing-tight;
+    line-height: 1.2;
+  }
+
+  &__tagline {
+    font-size: $font-size-xs;
+    color: $text-muted;
+    line-height: 1.2;
+  }
+
+  // --------------------------------------------
+  // NAVIGATION
+  // --------------------------------------------
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+
+    @media (max-width: $breakpoint-md) {
+      gap: $spacing-1;
+    }
+  }
+
+  &__nav-btn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background-color: transparent;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+
+    @media (max-width: $breakpoint-md) {
+      padding: $spacing-2;
+
+      span:not(.header__nav-badge) {
+        display: none;
+      }
+    }
+
+    &:hover {
+      color: $text-primary;
+      background-color: $bg-card;
+    }
+
+    &--active {
+      color: $color-primary;
+      background-color: $color-primary-bg;
+
+      &:hover {
+        color: $color-primary-light;
+        background-color: $color-primary-bg;
+      }
+    }
+  }
+
+  &__nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &__nav-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 $spacing-1;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    background-color: $color-primary;
+    border-radius: $radius-full;
+  }
+
+  // --------------------------------------------
+  // CONTROLS (Currency, Theme)
+  // --------------------------------------------
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex-shrink: 0;
+
+    @media (max-width: $breakpoint-md) {
+      gap: $spacing-2;
+    }
+  }
+
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: $text-secondary;
+    background-color: transparent;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+
+    &:hover {
+      color: $text-primary;
+      background-color: $bg-card;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__theme-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+
+    &--light {
+      display: none;
+    }
+  }
+}
+
+// --------------------------------------------
+// CURRENCY SELECTOR
+// --------------------------------------------
+.currency-selector {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  @media (max-width: $breakpoint-sm) {
+    .currency-selector__label {
+      display: none;
+    }
+  }
+
+  &__label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+  }
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__select {
+    padding: $spacing-2 $spacing-8 $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    background-color: $bg-card;
+    border: $border-width solid $border-color;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: $transition-colors;
+    min-width: 100px;
+
+    &:hover {
+      border-color: $border-color-light;
+    }
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px $color-primary-bg;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      min-width: 80px;
+      padding: $spacing-2 $spacing-6 $spacing-2 $spacing-2;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: $spacing-2;
+    width: 1rem;
+    height: 1rem;
+    color: $text-muted;
+    pointer-events: none;
+  }
+}

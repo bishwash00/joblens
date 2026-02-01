@@ -1,0 +1,173 @@
+// ============================================
+// PAGINATION - Navigation Controls
+// ============================================
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-4;
+
+  // --------------------------------------------
+  // NAV BUTTONS (Prev/Next)
+  // --------------------------------------------
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background-color: $bg-card;
+    border: $border-width solid $border-color;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:hover:not(:disabled) {
+      color: $text-primary;
+      background-color: $bg-card-hover;
+      border-color: $border-color-light;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-2;
+
+      span {
+        display: none;
+      }
+    }
+  }
+
+  // --------------------------------------------
+  // PAGE NUMBERS
+  // --------------------------------------------
+  &__pages {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $pagination-btn-size;
+    height: $pagination-btn-size;
+    padding: 0 $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background: transparent;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+
+    &:hover {
+      color: $text-primary;
+      background-color: $bg-card;
+    }
+
+    &--active {
+      color: $text-primary;
+      background-color: $color-primary;
+
+      &:hover {
+        background-color: $color-primary-light;
+      }
+    }
+  }
+
+  &__ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $pagination-btn-size;
+    height: $pagination-btn-size;
+    font-size: $font-size-sm;
+    color: $text-muted;
+  }
+}
+
+// --------------------------------------------
+// COMPACT PAGINATION (Alternative Style)
+// --------------------------------------------
+.pagination--compact {
+  gap: $spacing-4;
+
+  .pagination__pages {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $text-muted;
+
+    strong {
+      color: $text-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  .pagination__btn {
+    width: $pagination-btn-size;
+    height: $pagination-btn-size;
+    padding: 0;
+    justify-content: center;
+
+    span {
+      display: none;
+    }
+  }
+}
+
+// --------------------------------------------
+// LOAD MORE BUTTON (Alternative)
+// --------------------------------------------
+.load-more {
+  display: flex;
+  justify-content: center;
+  padding: $spacing-6;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-8;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background-color: $bg-card;
+    border: $border-width solid $border-color;
+    border-radius: $radius-lg;
+    transition: $transition-all;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    &:hover {
+      color: $text-primary;
+      background-color: $bg-card-hover;
+      border-color: $border-color-light;
+    }
+
+    &--loading {
+      pointer-events: none;
+
+      svg {
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}

@@ -1,0 +1,327 @@
+// ============================================
+// BOOKMARKS - Saved Jobs & Targets
+// ============================================
+
+.bookmarks {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  // --------------------------------------------
+  // HEADER
+  // --------------------------------------------
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+  }
+
+  &__subtitle {
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+
+  // --------------------------------------------
+  // TABS
+  // --------------------------------------------
+  &__tabs {
+    display: flex;
+    gap: $spacing-2;
+    padding: $spacing-2;
+    background-color: $bg-card;
+    border-radius: $radius-lg;
+    border: $border-width solid $border-color;
+    overflow-x: auto;
+
+    // Hide scrollbar
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background: transparent;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+    white-space: nowrap;
+
+    svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
+    &:hover {
+      color: $text-primary;
+      background-color: $bg-input;
+    }
+
+    &--active {
+      color: $color-primary;
+      background-color: $color-primary-bg;
+
+      &:hover {
+        color: $color-primary;
+        background-color: $color-primary-bg;
+      }
+    }
+  }
+
+  &__tab-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 $spacing-1;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $text-muted;
+    background-color: $bg-input;
+    border-radius: $radius-full;
+
+    .bookmarks__tab--active & {
+      color: $color-primary;
+      background-color: rgba($color-primary, 0.2);
+    }
+  }
+
+  // --------------------------------------------
+  // CONTENT
+  // --------------------------------------------
+  &__content {
+    animation: fadeIn $transition-base;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  // --------------------------------------------
+  // EMPTY STATE
+  // --------------------------------------------
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    padding: $spacing-16 $spacing-4;
+    text-align: center;
+  }
+
+  &__empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: $bg-card;
+    border-radius: $radius-full;
+
+    svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: $text-muted;
+    }
+  }
+
+  &__empty-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+  }
+
+  &__empty-text {
+    max-width: 400px;
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+
+  &__empty-btn {
+    margin-top: $spacing-2;
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    background: linear-gradient(135deg, $color-primary, $color-primary-dark);
+    border-radius: $radius-md;
+    transition: $transition-all;
+
+    &:hover {
+      background: linear-gradient(135deg, $color-primary-light, $color-primary);
+      transform: translateY(-1px);
+      box-shadow: $shadow-glow;
+    }
+  }
+}
+
+// --------------------------------------------
+// BOOKMARK ITEM
+// --------------------------------------------
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  background-color: $bg-card;
+  border: $border-width solid $border-color;
+  border-radius: $radius-lg;
+  transition: $transition-all;
+
+  &:hover {
+    background-color: $bg-card-hover;
+    border-color: $border-color-light;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, $color-medium, $color-dark);
+    border-radius: $radius-md;
+    flex-shrink: 0;
+
+    span {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $text-primary;
+    }
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: $text-primary;
+    }
+
+    &--flag {
+      background: $bg-input;
+
+      span {
+        font-size: $font-size-xl;
+      }
+    }
+
+    &--role {
+      background: linear-gradient(135deg, $color-primary, $color-secondary);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    color: $text-muted;
+  }
+
+  &__separator {
+    color: $border-color;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin-top: $spacing-2;
+  }
+
+  &__tag {
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    background-color: $bg-input;
+    border-radius: $radius-sm;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    flex-shrink: 0;
+
+    @media (max-width: $breakpoint-sm) {
+      align-self: flex-end;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: $text-muted;
+    background: transparent;
+    border-radius: $radius-md;
+    transition: $transition-colors;
+
+    svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
+    &:hover {
+      color: $color-primary;
+      background-color: $color-primary-bg;
+    }
+
+    &--remove {
+      &:hover {
+        color: $color-error;
+        background-color: $color-error-bg;
+      }
+    }
+  }
+}

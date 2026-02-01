@@ -1,0 +1,306 @@
+// ============================================
+// LAYOUT - Page Structure & Grid
+// ============================================
+
+// --------------------------------------------
+// APP CONTAINER
+// --------------------------------------------
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+// --------------------------------------------
+// MAIN CONTENT AREA
+// --------------------------------------------
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: $spacing-6 $container-padding;
+  padding-top: calc($header-height + $spacing-6);
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-4;
+    padding-top: calc($header-height-mobile + $spacing-4);
+  }
+}
+
+// --------------------------------------------
+// VIEW CONTAINERS
+// --------------------------------------------
+[data-view-container] {
+  animation: fadeIn $transition-base;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --------------------------------------------
+// SEARCH VIEW LAYOUT
+// --------------------------------------------
+.search-view {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+// --------------------------------------------
+// ANALYTICS VIEW LAYOUT
+// --------------------------------------------
+.analytics-view {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+// --------------------------------------------
+// BOOKMARKS VIEW LAYOUT
+// --------------------------------------------
+.bookmarks-view {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+// --------------------------------------------
+// CONTAINER HELPERS
+// --------------------------------------------
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+.container--narrow {
+  max-width: 900px;
+}
+
+.container--wide {
+  max-width: 1600px;
+}
+
+// --------------------------------------------
+// GRID SYSTEMS
+// --------------------------------------------
+
+// Basic flex grid
+.grid {
+  display: grid;
+  gap: $grid-gap;
+}
+
+// Auto-fit grid for cards
+.grid--auto {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 2-column grid
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 3-column grid
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 4-column grid
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: $breakpoint-xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --------------------------------------------
+// FLEX UTILITIES
+// --------------------------------------------
+.flex {
+  display: flex;
+}
+
+.flex--column {
+  flex-direction: column;
+}
+
+.flex--wrap {
+  flex-wrap: wrap;
+}
+
+.flex--center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex--between {
+  justify-content: space-between;
+}
+
+.flex--start {
+  align-items: flex-start;
+}
+
+.flex--end {
+  align-items: flex-end;
+}
+
+// Gap utilities for flex
+.gap-1 {
+  gap: $spacing-1;
+}
+.gap-2 {
+  gap: $spacing-2;
+}
+.gap-3 {
+  gap: $spacing-3;
+}
+.gap-4 {
+  gap: $spacing-4;
+}
+.gap-6 {
+  gap: $spacing-6;
+}
+.gap-8 {
+  gap: $spacing-8;
+}
+
+// --------------------------------------------
+// SECTION SPACING
+// --------------------------------------------
+.section {
+  padding: $spacing-12 0;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-8 0;
+  }
+}
+
+.section--sm {
+  padding: $spacing-8 0;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-6 0;
+  }
+}
+
+// --------------------------------------------
+// SIDEBAR LAYOUT (For future use)
+// --------------------------------------------
+.layout-sidebar {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  gap: $grid-gap;
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.layout-sidebar__main {
+  min-width: 0; // Prevent overflow
+}
+
+.layout-sidebar__aside {
+  @media (max-width: $breakpoint-lg) {
+    order: -1;
+  }
+}
+
+// --------------------------------------------
+// SPLIT LAYOUT
+// --------------------------------------------
+.layout-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $grid-gap;
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --------------------------------------------
+// STICKY ELEMENTS
+// --------------------------------------------
+.sticky {
+  position: sticky;
+  top: calc($header-height + $spacing-4);
+
+  @media (max-width: $breakpoint-md) {
+    position: static;
+  }
+}
+
+// --------------------------------------------
+// RESPONSIVE BREAKPOINT VISIBILITY
+// --------------------------------------------
+
+// Hide on mobile
+.hide-mobile {
+  @media (max-width: $breakpoint-md) {
+    display: none !important;
+  }
+}
+
+// Hide on desktop
+.hide-desktop {
+  @media (min-width: $breakpoint-md) {
+    display: none !important;
+  }
+}
+
+// Show only on mobile
+.show-mobile {
+  display: none !important;
+
+  @media (max-width: $breakpoint-md) {
+    display: block !important;
+  }
+}
+
+// Show only on desktop
+.show-desktop {
+  display: none !important;
+
+  @media (min-width: $breakpoint-md) {
+    display: block !important;
+  }
+}

@@ -1,0 +1,301 @@
+// ============================================
+// BASE - Reset & Foundation Styles
+// ============================================
+
+// --------------------------------------------
+// CSS RESET & BOX SIZING
+// --------------------------------------------
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Prevent font size inflation
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+}
+
+// Remove default list styles
+ul,
+ol {
+  list-style: none;
+}
+
+// Set core body defaults
+body {
+  min-height: 100vh;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background-color: $bg-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Set shorter line heights on headings and interactive elements
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+label {
+  line-height: $line-height-tight;
+}
+
+// Balance text wrapping on headings
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+// A elements that don't have a class get default styles
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: $color-primary;
+}
+
+// Remove default anchor styles
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// Make images easier to work with
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+// Inherit fonts for inputs and buttons
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+// Make sure textareas without a rows attribute are not tiny
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+// Anything that has been anchored to should have extra scroll margin
+:target {
+  scroll-margin-block: 5ex;
+}
+
+// Remove all animations and transitions for people that prefer not to see them
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// --------------------------------------------
+// TYPOGRAPHY BASE
+// --------------------------------------------
+h1 {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: $letter-spacing-tight;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-2xl;
+  }
+}
+
+h2 {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: $letter-spacing-tight;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-xl;
+  }
+}
+
+h3 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+}
+
+h4 {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+}
+
+h5 {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+}
+
+h6 {
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+}
+
+p {
+  color: $text-secondary;
+
+  & + p {
+    margin-top: $spacing-4;
+  }
+}
+
+strong,
+b {
+  font-weight: $font-weight-semibold;
+}
+
+small {
+  font-size: $font-size-sm;
+}
+
+code {
+  font-family: $font-family-mono;
+  font-size: 0.9em;
+  background-color: $bg-card;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-sm;
+}
+
+// --------------------------------------------
+// BUTTONS BASE
+// --------------------------------------------
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// --------------------------------------------
+// FORM ELEMENTS BASE
+// --------------------------------------------
+input,
+textarea,
+select {
+  background-color: $bg-input;
+  border: $border-width solid $border-color;
+  border-radius: $input-radius;
+  outline: none;
+  transition: $transition-colors, $transition-shadow;
+
+  &:focus {
+    border-color: $border-color-focus;
+    box-shadow: 0 0 0 3px $color-primary-bg;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: $bg-secondary;
+  }
+}
+
+// Remove default appearance for select
+select {
+  appearance: none;
+  cursor: pointer;
+}
+
+// Remove default appearance for number inputs
+input[type="number"] {
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+// --------------------------------------------
+// SCROLLBAR STYLING
+// --------------------------------------------
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-secondary;
+  border-radius: $radius-full;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-medium;
+  border-radius: $radius-full;
+
+  &:hover {
+    background: $color-light;
+  }
+}
+
+// Firefox scrollbar
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-medium $bg-secondary;
+}
+
+// --------------------------------------------
+// SELECTION
+// --------------------------------------------
+::selection {
+  background-color: $color-primary;
+  color: $color-lightest;
+}
+
+// --------------------------------------------
+// FOCUS VISIBLE
+// --------------------------------------------
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}
+
+// Remove focus outline for mouse users
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// --------------------------------------------
+// SVG ICONS
+// --------------------------------------------
+svg {
+  flex-shrink: 0;
+}

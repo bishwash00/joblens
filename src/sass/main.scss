@@ -1,0 +1,65 @@
+// ============================================
+// MAIN SCSS - Import All Partials
+// ============================================
+// JobLens - Global Job Market Analyzer
+// A data-driven web app to explore global job demand,
+// salaries, and career opportunities
+// ============================================
+
+// --------------------------------------------
+// 1. CONFIGURATION & TOKENS
+// Variables must be loaded first as they're
+// used throughout all other partials
+// --------------------------------------------
+@import "variables";
+
+// --------------------------------------------
+// 2. BASE / RESET
+// Foundation styles including CSS reset,
+// typography base, and global element styles
+// --------------------------------------------
+@import "base";
+
+// --------------------------------------------
+// 3. LAYOUT
+// Page structure, containers, grid systems,
+// and responsive layout utilities
+// --------------------------------------------
+@import "layout";
+
+// --------------------------------------------
+// 4. COMPONENTS
+// Individual UI components ordered by specificity
+// and dependency relationships
+// --------------------------------------------
+
+// Header & Navigation
+@import "header";
+
+// Search functionality
+@import "search";
+
+// Results display
+@import "results";
+
+// Job cards & modal
+@import "job";
+
+// Analytics & Charts
+@import "charts";
+
+// Bookmarks panel
+@import "bookmarks";
+
+// Pagination controls
+@import "pagination";
+
+// Footer & Toasts
+@import "components";
+
+// --------------------------------------------
+// 5. UTILITIES
+// Helper classes for quick styling adjustments
+// Should be loaded last to ensure highest specificity
+// --------------------------------------------
+@import "utilities";
