@@ -16,6 +16,7 @@
     />
 
     <link rel="stylesheet" href="src/sass/main.scss" />
+    <script type="module" src="./src/js/controller.js"></script>
 
     <title>JobLens | Global Job Market Analyzer</title>
   </head>
@@ -295,7 +296,7 @@
             </div>
 
             <!-- Job Cards Container -->
-            <div class="results__grid hidden" data-results-container>
+            <div class="results__grid" data-results-container>
               <!-- Job Card 1 -->
               <article class="job-card" data-job-id="1">
                 <div class="job-card__header">
@@ -354,188 +355,12 @@
                 </div>
               </article>
 
-              <!-- Job Card 2 -->
-              <article class="job-card" data-job-id="2">
-                <div class="job-card__header">
-                  <div class="job-card__company-logo" data-company-logo>
-                    <span>M</span>
-                  </div>
-                  <div class="job-card__meta">
-                    <span class="job-card__company">Microsoft</span>
-                    <span class="job-card__location">
-                      <svg>
-                        <use href="./src/img/icons.svg#icon-location"></use>
-                      </svg>
-                      Germany
-                    </span>
-                  </div>
-                  <button
-                    class="job-card__bookmark"
-                    data-bookmark-btn
-                    aria-label="Bookmark job"
-                  >
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-bookmark"></use>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="job-card__body">
-                  <h3 class="job-card__title">Data Scientist</h3>
-                  <p class="job-card__description">
-                    Join our AI team to build machine learning models and data
-                    pipelines that power intelligent features...
-                  </p>
-
-                  <div class="job-card__tags">
-                    <span class="job-card__tag job-card__tag--hybrid"
-                      >Hybrid</span
-                    >
-                    <span class="job-card__tag job-card__tag--fulltime"
-                      >Full-time</span
-                    >
-                    <span class="job-card__tag">Python</span>
-                    <span class="job-card__tag">ML</span>
-                  </div>
-                </div>
-
-                <div class="job-card__footer">
-                  <div class="job-card__salary">
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-dollar"></use>
-                    </svg>
-                    <span class="job-card__salary-amount" data-salary
-                      >€85,000 - €120,000</span
-                    >
-                  </div>
-                  <span class="job-card__posted">1 week ago</span>
-                </div>
-              </article>
-
-              <!-- Job Card 3 -->
-              <article class="job-card" data-job-id="3">
-                <div class="job-card__header">
-                  <div class="job-card__company-logo" data-company-logo>
-                    <span>A</span>
-                  </div>
-                  <div class="job-card__meta">
-                    <span class="job-card__company">Amazon</span>
-                    <span class="job-card__location">
-                      <svg>
-                        <use href="./src/img/icons.svg#icon-location"></use>
-                      </svg>
-                      United Kingdom
-                    </span>
-                  </div>
-                  <button
-                    class="job-card__bookmark job-card__bookmark--active"
-                    data-bookmark-btn
-                    aria-label="Remove bookmark"
-                  >
-                    <svg>
-                      <use
-                        href="./src/img/icons.svg#icon-bookmark-filled"
-                      ></use>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="job-card__body">
-                  <h3 class="job-card__title">Backend Engineer</h3>
-                  <p class="job-card__description">
-                    Design and build scalable distributed systems serving
-                    millions of customers worldwide...
-                  </p>
-
-                  <div class="job-card__tags">
-                    <span class="job-card__tag job-card__tag--onsite"
-                      >On-site</span
-                    >
-                    <span class="job-card__tag job-card__tag--fulltime"
-                      >Full-time</span
-                    >
-                    <span class="job-card__tag">Java</span>
-                    <span class="job-card__tag">AWS</span>
-                  </div>
-                </div>
-
-                <div class="job-card__footer">
-                  <div class="job-card__salary">
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-dollar"></use>
-                    </svg>
-                    <span class="job-card__salary-amount" data-salary
-                      >£75,000 - £110,000</span
-                    >
-                  </div>
-                  <span class="job-card__posted">3 days ago</span>
-                </div>
-              </article>
-
-              <!-- Job Card 4 -->
-              <article class="job-card" data-job-id="4">
-                <div class="job-card__header">
-                  <div class="job-card__company-logo" data-company-logo>
-                    <span>S</span>
-                  </div>
-                  <div class="job-card__meta">
-                    <span class="job-card__company">Spotify</span>
-                    <span class="job-card__location">
-                      <svg>
-                        <use href="./src/img/icons.svg#icon-location"></use>
-                      </svg>
-                      Sweden
-                    </span>
-                  </div>
-                  <button
-                    class="job-card__bookmark"
-                    data-bookmark-btn
-                    aria-label="Bookmark job"
-                  >
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-bookmark"></use>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="job-card__body">
-                  <h3 class="job-card__title">Full Stack Developer</h3>
-                  <p class="job-card__description">
-                    Create innovative features for millions of music lovers
-                    using cutting-edge web technologies...
-                  </p>
-
-                  <div class="job-card__tags">
-                    <span class="job-card__tag job-card__tag--remote"
-                      >Remote</span
-                    >
-                    <span class="job-card__tag job-card__tag--fulltime"
-                      >Full-time</span
-                    >
-                    <span class="job-card__tag">Node.js</span>
-                    <span class="job-card__tag">React</span>
-                  </div>
-                </div>
-
-                <div class="job-card__footer">
-                  <div class="job-card__salary">
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-dollar"></use>
-                    </svg>
-                    <span class="job-card__salary-amount" data-salary
-                      >SEK 650,000 - 850,000</span
-                    >
-                  </div>
-                  <span class="job-card__posted">5 days ago</span>
-                </div>
-              </article>
-
               <!-- More job cards would be dynamically rendered here -->
             </div>
 
             <!-- Pagination -->
             <nav
-              class="pagination hidden"
+              class="pagination"
               data-pagination
               aria-label="Results pagination"
             >
@@ -1747,8 +1572,5 @@
         </div>
       </div>
     </div>
-
-    <!-- JS will be loaded here -->
-    <!-- <script type="module" src="src/js/controller.js"></script> -->
   </body>
 </html>

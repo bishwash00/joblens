@@ -4,7 +4,6 @@
   "description": "JobLens - Global Job Market Analyzer",
   "license": "ISC",
   "author": "Bishwash Karki",
-  "type": "commonjs",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html --dist-dir ./dist"
