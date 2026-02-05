@@ -1,12 +1,15 @@
 import * as model from './model.js';
-import jobsResultView from './jobsResultView.js';
+import jobsResultView from './views/jobsResultView.js';
 
-const controlJobResults = async function () {
+const controlJobResults = async function (query) {
   try {
-    await model.controlJobs();
+    await model.getJobs();
+
+    jobsResultView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
 };
 
-controlJobResults();
+const init = function () {};
+init();

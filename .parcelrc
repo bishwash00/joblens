@@ -1,10 +1,17 @@
 {
   "extends": "@parcel/config-default",
   "transformers": {
-    "*.svg": ["..."],
-    "*.html": ["@parcel/transformer-html"]
+    "*.svg": [
+      "..."
+    ],
+    "*.html": [
+      "@parcel/transformer-html"
+    ]
   },
   "optimizers": {
     "*.svg": []
-  }
+  },
+  "reporters": [
+    "@parcel/reporter-dev-server"
+  ]
 }

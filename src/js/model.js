@@ -22,20 +22,36 @@ export const state = {
 };
 
 const getJobAPIURL = function () {
-  return `${JOB_API_URL}in/search/2?app_id=${API_APP_ID}&app_key=${API_KEY}&results_per_page=20&what=python`;
+  return `${JOB_API_URL}gb/search/1?app_id=${API_APP_ID}&app_key=${API_KEY}&results_per_page=9&what=javascript`;
 };
 
-const getJobObjects = function (resultsArr) {};
+const getJobObjects = function (resultsArr) {
+  return resultsArr.map(result => ({
+    title: result.title,
+    companyName: result.company.display_name,
+    id: result.id,
+    location: result.location.display_name,
+    description: result.description,
+    contractTime: result.contract_time ? result.contract_time : 'full_time',
+    salaryMax: result.salary_max,
+    salaryMin: result.salary_min,
+    date: result.created.split('T')[0],
+  }));
+};
 
-export const controlJobs = async function () {
+export const getJobs = async function () {
   try {
     const apiUrl = getJobAPIURL();
-    const data = await getJSON(PROXY + encodeURIComponent(apiUrl));
+    const proxyUrl = PROXY + apiUrl;
+
+    const data = await getJSON(proxyUrl);
     console.log(data);
 
     state.search.count = data.count;
-    state.search.results = getJobObjects(data.results[0]);
+    state.search.results = getJobObjects(data.results);
+    console.log(state.search.results);
   } catch (err) {
+    console.error('Error:', err.message);
     throw err;
   }
 };
