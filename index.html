@@ -172,20 +172,20 @@
                 <label class="search__filter-label">Experience</label>
                 <select class="search__filter-select" data-filter-experience>
                   <option value="">All Levels</option>
-                  <option value="entry">Entry Level</option>
-                  <option value="mid">Mid Level</option>
-                  <option value="senior">Senior Level</option>
-                  <option value="lead">Lead / Principal</option>
+                  <option value="no_exp">No Experience</option>
+                  <option value="mid_exp">Less than 3 years</option>
+                  <option value="high_exp">More than 3 years</option>
                 </select>
               </div>
 
               <div class="search__filter-group">
-                <label class="search__filter-label">Sort By</label>
+                <label class="search__filter-label">Date Posted Within</label>
                 <select class="search__filter-select" data-filter-sort>
-                  <option value="relevance">Relevance</option>
-                  <option value="salary-high">Salary: High to Low</option>
-                  <option value="salary-low">Salary: Low to High</option>
-                  <option value="date">Most Recent</option>
+                  <option value="">All</option>
+                  <option value="today">Today</option>
+                  <option value="three_day">3 days</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
                 </select>
               </div>
             </div>
@@ -357,7 +357,7 @@
 
             <!-- Pagination -->
             <nav
-              class="pagination"
+              class="pagination hidden"
               data-pagination
               aria-label="Results pagination"
             >

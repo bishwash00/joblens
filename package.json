@@ -5,8 +5,10 @@
   "license": "ISC",
   "author": "Bishwash Karki",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html --dist-dir ./dist"
+    "start": "parcel index.html --port 1234",
+    "build": "parcel build index.html --dist-dir ./dist",
+    "proxy": "node proxy-server.js",
+    "dev": "concurrently \"parcel index.html --port 1234\" \"node proxy-server.js\""
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.16.3",
@@ -15,6 +17,11 @@
   "dependencies": {
     "core-js": "^3.48.0",
     "regenerator-runtime": "^0.14.1",
-    "sass": "^1.97.3"
+    "sass": "^1.97.3",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2",
+    "concurrently": "^8.2.2"
   }
 }

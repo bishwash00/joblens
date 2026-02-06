@@ -183,7 +183,22 @@
 
     &--fulltime {
       color: $color-primary;
-      background-color: $color-primary-bg;
+      background-color: rgba($color-primary, 0.1);
+    }
+
+    &--parttime {
+      color: $color-warning;
+      background-color: rgba($color-warning, 0.1);
+    }
+
+    &--contractor {
+      color: $color-secondary;
+      background-color: rgba($color-secondary, 0.1);
+    }
+
+    &--intern {
+      color: $color-info;
+      background-color: rgba($color-info, 0.1);
     }
   }
 
@@ -436,7 +451,22 @@
 
     &--fulltime {
       color: $color-primary;
-      background-color: $color-primary-bg;
+      background-color: rgba($color-primary, 0.1);
+    }
+
+    &--parttime {
+      color: $color-warning;
+      background-color: rgba($color-warning, 0.1);
+    }
+
+    &--contractor {
+      color: $color-secondary;
+      background-color: rgba($color-secondary, 0.1);
+    }
+
+    &--intern {
+      color: $color-info;
+      background-color: rgba($color-info, 0.1);
     }
   }
 
