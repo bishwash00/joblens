@@ -1,6 +1,6 @@
 // JobLens API Configuration for JSearch API
 export const PROXY_SERVER_URL = 'http://localhost:8080';
-export const TIMEOUT_SEC = 20;
+export const TIMEOUT_SEC = 60;
 
 // API Endpoints
 export const API_ENDPOINTS = {

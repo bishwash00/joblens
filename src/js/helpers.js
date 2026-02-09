@@ -1,5 +1,10 @@
 import { TIMEOUT_SEC } from './config.js';
 
+// Exchange rate cache
+let exchangeRateCache = {};
+let cacheTimestamp = 0;
+const CACHE_DURATION = 3600000; // 1 hour
+
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -44,17 +49,57 @@ export const getJSON = async function (url) {
   }
 };
 
+// Utility function to convert currency with cached exchange rates
+export const convertCurrency = async function (
+  amount,
+  fromCurrency,
+  toCurrency,
+) {
+  if (fromCurrency === toCurrency) return amount;
+
+  try {
+    const now = Date.now();
+    if (
+      !exchangeRateCache[fromCurrency] ||
+      now - cacheTimestamp > CACHE_DURATION
+    ) {
+      const res = await fetch(
+        `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`,
+      );
+      const data = await res.json();
+      exchangeRateCache[fromCurrency] = data.rates;
+      cacheTimestamp = now;
+    }
+
+    const rate = exchangeRateCache[fromCurrency]?.[toCurrency];
+    if (!rate) throw new Error(`Conversion rate not found`);
+    return amount * rate;
+  } catch (err) {
+    console.error('❌ Currency conversion failed:', err.message);
+    return amount; // fallback to original amount
+  }
+};
+
 // Utility function to format currency
-export const formatCurrency = function (amount, currency = 'USD') {
+export const formatCurrency = async function (
+  amount,
+  currency = 'USD',
+  convertTo = null,
+) {
   if (!amount) return 'Not specified';
+
+  let finalAmount = amount;
+  if (convertTo && convertTo !== currency) {
+    finalAmount = await convertCurrency(amount, currency, convertTo);
+  }
 
   const formatOptions = {
     style: 'currency',
-    currency: currency,
+    currency: convertTo || currency,
     maximumFractionDigits: 0,
   };
 
-  return new Intl.NumberFormat('en-US', formatOptions).format(amount);
+  return new Intl.NumberFormat('en-US', formatOptions).format(finalAmount);
 };
 
 // Utility function to format job posting date

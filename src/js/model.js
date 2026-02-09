@@ -93,45 +93,46 @@ const buildSearchParams = function (query, page = 1, filters = {}) {
 
 // Main function to search for jobs
 export const getJobs = async function (query, page = 1, filters = {}) {
-  console.log('🔍 Searching for jobs:', { query, page, filters });
+  try {
+    console.log('🔍 Searching for jobs:', { query, page, filters });
 
-  // Update state
-  state.search.query = query;
-  state.search.page = page;
-  state.search.filters = { ...state.search.filters, ...filters };
-  console.log(state.search.filters);
+    // Update state
+    state.search.query = query;
+    state.search.page = page;
+    state.search.filters = { ...state.search.filters, ...filters };
+    console.log(state.search.filters);
 
-  // Build API URL with parameters
-  const searchParams = buildSearchParams(query, page, filters);
-  console.log(searchParams);
-  const apiUrl = `${API_ENDPOINTS.SEARCH}?${searchParams}`;
+    // Build API URL with parameters
+    const searchParams = buildSearchParams(query, page, filters);
+    console.log(searchParams);
+    const apiUrl = `${API_ENDPOINTS.SEARCH}?${searchParams}`;
 
-  console.log('📡 API URL:', apiUrl);
+    console.log('📡 API URL:', apiUrl);
 
-  // Make API call
-  const data = await getJSON(apiUrl);
+    // Make API call
+    const data = await getJSON(apiUrl);
 
-  console.log('✅ Raw API Response:', data);
+    console.log('✅ Raw API Response:', data);
 
-  // Process and format job data
-  if (data.data && Array.isArray(data.data)) {
-    state.search.results = formatJobData(data.data);
-    state.search.totalJobs = data.data.length;
+    // Process and format job data
+    if (data.data && Array.isArray(data.data)) {
+      state.search.results = formatJobData(data.data);
+      state.search.totalJobs = data.data.length;
 
-    console.log('📊 Formatted Jobs:', state.search.results);
-    console.log(`📈 Total jobs found: ${state.search.totalJobs}`);
+      console.log('📊 Formatted Jobs:', state.search.results);
+      console.log(`📈 Total jobs found: ${state.search.totalJobs}`);
 
-    // Log first job sample for debugging
-    if (state.search.results.length > 0) {
-      console.log('👀 First job sample:', state.search.results[0]);
+      if (state.search.results.length === 0) {
+        state.search.results = [];
+        state.search.totalJobs = 0;
+        throw new Error('⚠️ No job data found in response');
+      }
     }
-  } else {
-    console.warn('⚠️ No job data found in response');
-    state.search.results = [];
-    state.search.totalJobs = 0;
-  }
 
-  return state.search.results;
+    return state.search.results;
+  } catch (err) {
+    throw err;
+  }
 };
 
 // Function to get job details by ID

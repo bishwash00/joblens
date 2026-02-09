@@ -78,11 +78,6 @@
                 <option value="EUR">EUR (€)</option>
                 <option value="GBP">GBP (£)</option>
                 <option value="NPR">NPR (₨)</option>
-                <option value="INR">INR (₹)</option>
-                <option value="AUD">AUD ($)</option>
-                <option value="CAD">CAD ($)</option>
-                <option value="JPY">JPY (¥)</option>
-                <option value="CHF">CHF (Fr)</option>
               </select>
               <svg class="currency-selector__icon">
                 <use href="./src/img/icons.svg#icon-chevron-down"></use>
@@ -364,7 +359,6 @@
               <button
                 class="pagination__btn pagination__btn--prev"
                 data-pagination-prev
-                disabled
               >
                 <svg>
                   <use href="./src/img/icons.svg#icon-arrow-left"></use>
@@ -1365,174 +1359,7 @@
         <!-- ========== JOB DETAILS MODAL ========== -->
         <div class="job-modal hidden" data-job-modal>
           <div class="job-modal__overlay" data-modal-close></div>
-          <div class="job-modal__content">
-            <button
-              class="job-modal__close"
-              data-modal-close
-              aria-label="Close modal"
-            >
-              <svg><use href="./src/img/icons.svg#icon-close"></use></svg>
-            </button>
-
-            <div class="job-modal__header">
-              <div class="job-modal__company">
-                <div class="job-modal__company-logo" data-modal-logo>
-                  <span>G</span>
-                </div>
-                <div class="job-modal__company-info">
-                  <h2 class="job-modal__title" data-modal-title>
-                    Senior Frontend Developer
-                  </h2>
-                  <p class="job-modal__company-name" data-modal-company>
-                    Google
-                  </p>
-                </div>
-              </div>
-              <button
-                class="job-modal__bookmark"
-                data-modal-bookmark
-                aria-label="Bookmark job"
-              >
-                <svg><use href="./src/img/icons.svg#icon-bookmark"></use></svg>
-                <span>Save Job</span>
-              </button>
-            </div>
-
-            <div class="job-modal__meta">
-              <div class="job-modal__meta-item">
-                <svg><use href="./src/img/icons.svg#icon-location"></use></svg>
-                <span data-modal-location>San Francisco, United States</span>
-                <span class="job-modal__flag" data-modal-flag>🇺🇸</span>
-              </div>
-              <div class="job-modal__meta-item">
-                <svg><use href="./src/img/icons.svg#icon-dollar"></use></svg>
-                <span data-modal-salary>$120,000 - $180,000 / year</span>
-              </div>
-              <div class="job-modal__meta-item">
-                <svg><use href="./src/img/icons.svg#icon-calendar"></use></svg>
-                <span data-modal-posted>Posted 2 days ago</span>
-              </div>
-            </div>
-
-            <div class="job-modal__tags" data-modal-tags>
-              <span class="job-modal__tag job-modal__tag--remote">Remote</span>
-              <span class="job-modal__tag job-modal__tag--fulltime"
-                >Full-time</span
-              >
-              <span class="job-modal__tag">Senior Level</span>
-            </div>
-
-            <div class="job-modal__section">
-              <h3 class="job-modal__section-title">Job Description</h3>
-              <div class="job-modal__description" data-modal-description>
-                <p>
-                  We are looking for a talented Senior Frontend Developer to
-                  join our team and help build the next generation of web
-                  experiences. You will work closely with designers, product
-                  managers, and backend engineers to deliver high-quality,
-                  performant applications.
-                </p>
-
-                <h4>Responsibilities:</h4>
-                <ul>
-                  <li>
-                    Design and implement user interfaces using React and
-                    TypeScript
-                  </li>
-                  <li>
-                    Collaborate with UX designers to translate designs into
-                    pixel-perfect implementations
-                  </li>
-                  <li>Write clean, maintainable, and well-tested code</li>
-                  <li>
-                    Optimize applications for maximum speed and scalability
-                  </li>
-                  <li>
-                    Mentor junior developers and participate in code reviews
-                  </li>
-                </ul>
-
-                <h4>Requirements:</h4>
-                <ul>
-                  <li>5+ years of experience in frontend development</li>
-                  <li>Expert knowledge of React, TypeScript, and modern CSS</li>
-                  <li>
-                    Experience with state management (Redux, MobX, or similar)
-                  </li>
-                  <li>Strong understanding of web performance optimization</li>
-                  <li>Excellent communication skills</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="job-modal__section">
-              <h3 class="job-modal__section-title">Salary Comparison</h3>
-              <div
-                class="job-modal__salary-comparison"
-                data-modal-salary-comparison
-              >
-                <div class="salary-comparison__item">
-                  <span class="salary-comparison__currency">USD</span>
-                  <span class="salary-comparison__value"
-                    >$120,000 - $180,000</span
-                  >
-                </div>
-                <div class="salary-comparison__item">
-                  <span class="salary-comparison__currency">EUR</span>
-                  <span class="salary-comparison__value"
-                    >€110,000 - €165,000</span
-                  >
-                </div>
-                <div class="salary-comparison__item">
-                  <span class="salary-comparison__currency">GBP</span>
-                  <span class="salary-comparison__value"
-                    >£95,000 - £142,000</span
-                  >
-                </div>
-                <div
-                  class="salary-comparison__item salary-comparison__item--highlight"
-                >
-                  <span class="salary-comparison__currency">NPR</span>
-                  <span class="salary-comparison__value"
-                    >₨16,000,000 - ₨24,000,000</span
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="job-modal__section">
-              <h3 class="job-modal__section-title">Required Skills</h3>
-              <div class="job-modal__skills" data-modal-skills>
-                <span class="job-modal__skill">JavaScript</span>
-                <span class="job-modal__skill">React</span>
-                <span class="job-modal__skill">TypeScript</span>
-                <span class="job-modal__skill">CSS/SCSS</span>
-                <span class="job-modal__skill">Node.js</span>
-                <span class="job-modal__skill">Git</span>
-                <span class="job-modal__skill">REST APIs</span>
-                <span class="job-modal__skill">Testing</span>
-              </div>
-            </div>
-
-            <div class="job-modal__actions">
-              <a
-                href="#"
-                class="job-modal__apply-btn"
-                data-modal-apply
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Apply Now
-                <svg>
-                  <use href="./src/img/icons.svg#icon-external-link"></use>
-                </svg>
-              </a>
-              <button class="job-modal__share-btn" data-modal-share>
-                <svg><use href="./src/img/icons.svg#icon-share"></use></svg>
-                Share
-              </button>
-            </div>
-          </div>
+          <div class="job-modal__content"></div>
         </div>
       </main>
 

@@ -15,10 +15,9 @@ class JobsResultView {
   _resultsCountEl = this._parentEl?.querySelector(
     '[data-results-count] strong',
   );
-  _paginationEl = this._parentEl?.querySelector('[data-pagination]');
   _data;
 
-  render(data) {
+  async render(data) {
     console.log('🎨 Rendering job results:', data);
 
     this._data = data;
@@ -36,12 +35,14 @@ class JobsResultView {
     }
 
     // Generate and insert markup
-    const markup = this._generateMarkup();
+    const markup = await this._generateMarkup();
     if (this._resultsGridEl) {
       this._resultsGridEl.innerHTML = markup;
     }
+  }
 
-    this._renderPagination();
+  clearGrid() {
+    this._resultsGridEl.innerHTML = '';
   }
 
   renderSpinner() {
@@ -50,8 +51,6 @@ class JobsResultView {
   }
 
   renderError(message = 'Something went wrong. Please try again.') {
-    console.error('🎨 Rendering error:', message);
-
     this._hideAllStates();
     this._errorEl?.classList.remove('hidden');
 
@@ -74,14 +73,17 @@ class JobsResultView {
     }
   }
 
-  _generateMarkup() {
-    return this._data.results.map(job => this._generateJobCard(job)).join('');
+  async _generateMarkup() {
+    const cards = await Promise.all(
+      this._data.results.map(job => this._generateJobCard(job)),
+    );
+    return cards.join('');
   }
 
-  _generateJobCard(job) {
+  async _generateJobCard(job) {
     const companyInitial = getCompanyInitial(job.companyName);
     const description = truncateText(job.description, 120);
-    const salaryDisplay = this._formatSalaryDisplay(job);
+    const salaryDisplay = await this._formatSalaryDisplay(job);
     const postedDate = formatPostedDate(job.postedDate);
     const jobTypeTag = this._getJobTypeTag(job.jobType);
     const remoteTag = job.isRemote
@@ -146,13 +148,13 @@ class JobsResultView {
     `;
   }
 
-  _formatSalaryDisplay(job) {
+  async _formatSalaryDisplay(job) {
     if (job.salaryMin && job.salaryMax) {
-      return `${formatCurrency(job.salaryMin)} - ${formatCurrency(job.salaryMax)}`;
+      return `${await formatCurrency(job.salaryMin)} - ${await formatCurrency(job.salaryMax)}`;
     } else if (job.salaryMin) {
-      return `${formatCurrency(job.salaryMin)}+`;
+      return `${await formatCurrency(job.salaryMin)}+`;
     } else if (job.salaryMax) {
-      return `Up to ${formatCurrency(job.salaryMax)}`;
+      return `Up to ${await formatCurrency(job.salaryMax)}`;
     }
     return 'Salary not specified';
   }
@@ -169,39 +171,6 @@ class JobsResultView {
     const cssClass = jobType?.toLowerCase() || 'fulltime';
 
     return `<span class="job-card__tag job-card__tag--${cssClass}">${displayType}</span>`;
-  }
-
-  _renderPagination() {
-    if (
-      this._paginationEl &&
-      this._data.results &&
-      this._data.results.length > 0
-    ) {
-      this._paginationEl.classList.remove('hidden');
-    }
-  }
-
-  addHandlerPagination(handler) {
-    const prevBtn = this._paginationEl?.querySelector('[data-pagination-prev]');
-    const nextBtn = this._paginationEl?.querySelector('[data-pagination-next]');
-
-    prevBtn?.addEventListener('click', () => {
-      if (this._data.page > 1) {
-        handler(this._data.page - 1);
-      }
-    });
-
-    nextBtn?.addEventListener('click', () => {
-      handler(this._data.page + 1);
-    });
-
-    this._paginationEl?.addEventListener('click', e => {
-      const pageBtn = e.target.closest('[data-page]');
-      if (pageBtn) {
-        const page = parseInt(pageBtn.dataset.page);
-        handler(page);
-      }
-    });
   }
 
   addHandlerRetry(handler) {
@@ -227,6 +196,16 @@ class JobsResultView {
           handler(jobId);
         }
       }
+    });
+  }
+
+  addHandlerJobClick(handler) {
+    this._resultsGridEl?.addEventListener('click', function (e) {
+      const jobEl = e.target.closest('.job-card');
+      if (!jobEl) return;
+
+      const jobID = jobEl.dataset.jobId;
+      handler(jobID);
     });
   }
 }

@@ -53,6 +53,18 @@
   // --------------------------------------------
   // PAGE NUMBERS
   // --------------------------------------------
+  &__info {
+    flex: 0 1 auto;
+    padding: 0 $spacing-3;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+
+    strong {
+      color: $text-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
   &__pages {
     display: flex;
     align-items: center;
