@@ -23,7 +23,6 @@ class JobModalView extends BaseJobView {
     this._jobModal.innerHTML = '';
 
     this._data = data;
-    console.log(this._data);
     const markup = await this._generateMarkup();
 
     this._jobModal.insertAdjacentHTML('beforeend', markup);
@@ -61,7 +60,7 @@ class JobModalView extends BaseJobView {
                 <div class="job-modal__company-logo" data-modal-logo>
                    ${
                      this._data.companyLogo
-                       ? `<img src="${this._data.companyLogo}" alt="${this._data.companyName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                       ? `<img src="${this._data.companyLogo}" alt="${this._data.companyName}" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                <span style="display:none;">${companyInitial}</span>`
                        : `<span>${companyInitial}</span>`
                    }

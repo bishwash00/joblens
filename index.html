@@ -7,6 +7,10 @@
       name="description"
       content="JobLens - Analyze global tech jobs, salaries, and career opportunities across countries"
     />
+    <meta name="theme-color" content="#1a1a2e" />
+
+    <!-- DNS prefetch for API domains -->
+    <link rel="dns-prefetch" href="https://api.exchangerate-api.com" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +18,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Preload critical SVG icons -->
+    <link rel="preload" href="./src/img/icons.svg" as="image" type="image/svg+xml" />
 
     <link rel="stylesheet" href="src/sass/main.scss" />
     <script type="module" src="./src/js/controller.js"></script>
@@ -262,64 +269,7 @@
             </div>
 
             <!-- Job Cards Container -->
-            <div class="results__grid" data-results-container>
-              <!-- <article class="job-card" data-job-id="1">
-                <div class="job-card__header">
-                  <div class="job-card__company-logo" data-company-logo>
-                    <span>G</span>
-                  </div>
-                  <div class="job-card__meta">
-                    <span class="job-card__company">Google</span>
-                    <span class="job-card__location">
-                      <svg>
-                        <use href="./src/img/icons.svg#icon-location"></use>
-                      </svg>
-                      United States
-                    </span>
-                  </div>
-                  <button
-                    class="job-card__bookmark"
-                    data-bookmark-btn
-                    aria-label="Bookmark job"
-                  >
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-bookmark"></use>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="job-card__body">
-                  <h3 class="job-card__title">Senior Frontend Developer</h3>
-                  <p class="job-card__description">
-                    Build next-generation web experiences using React,
-                    TypeScript, and modern web technologies...
-                  </p>
-
-                  <div class="job-card__tags">
-                    <span class="job-card__tag job-card__tag--remote"
-                      >Remote</span
-                    >
-                    <span class="job-card__tag job-card__tag--fulltime"
-                      >Full-time</span
-                    >
-                    <span class="job-card__tag">React</span>
-                    <span class="job-card__tag">TypeScript</span>
-                  </div>
-                </div>
-
-                <div class="job-card__footer">
-                  <div class="job-card__salary">
-                    <svg>
-                      <use href="./src/img/icons.svg#icon-dollar"></use>
-                    </svg>
-                    <span class="job-card__salary-amount" data-salary
-                      >$120,000 - $180,000</span
-                    >
-                  </div>
-                  <span class="job-card__posted">2 days ago</span>
-                </div>
-              </article> -->
-            </div>
+            <div class="results__grid" data-results-container></div>
 
             <!-- Pagination -->
             <nav
@@ -365,7 +315,30 @@
 
         <!-- ========== ANALYTICS VIEW ========== -->
         <section class="analytics-view hidden" data-view-container="analytics">
-          <div class="analytics">
+          <!-- Empty State (shown before any search) -->
+          <div class="analytics__empty" data-analytics-empty>
+            <div class="analytics__empty-icon">
+              <svg>
+                <use href="./src/img/icons.svg#icon-analytics"></use>
+              </svg>
+            </div>
+            <h3 class="analytics__empty-title">No Analytics Yet</h3>
+            <p class="analytics__empty-text">
+              Search for a job role to see market analytics across countries,
+              salaries, demand, and top skills.
+            </p>
+            <div class="analytics__empty-suggestions">
+              <p class="analytics__empty-hint">Try searching for:</p>
+              <div class="analytics__empty-tags">
+                <span class="analytics__empty-tag">Frontend Developer</span>
+                <span class="analytics__empty-tag">Data Scientist</span>
+                <span class="analytics__empty-tag">DevOps Engineer</span>
+                <span class="analytics__empty-tag">Full Stack Developer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="analytics" data-analytics-content style="display: none;">
             <div class="analytics__header">
               <h2 class="analytics__title">Job Market Analytics</h2>
               <p class="analytics__subtitle">
@@ -852,6 +825,11 @@
                       <option value="EUR">EUR</option>
                       <option value="GBP">GBP</option>
                       <option value="CHF">CHF</option>
+                      <option value="INR">INR</option>
+                      <option value="AUD">AUD</option>
+                      <option value="CAD">CAD</option>
+                      <option value="JPY">JPY</option>
+                      <option value="SGD">SGD</option>
                     </select>
                   </div>
                 </div>
@@ -860,6 +838,33 @@
                     <use href="./src/img/icons.svg#icon-arrow-right"></use>
                   </svg>
                 </div>
+                <div class="salary-converter__input-group">
+                  <label
+                    for="to-currency-select"
+                    class="salary-converter__label"
+                    >Convert To</label
+                  >
+                  <div class="salary-converter__input-wrapper">
+                    <select
+                      id="to-currency-select"
+                      class="salary-converter__select salary-converter__select--full"
+                      data-to-currency
+                    >
+                      <option value="NPR">NPR (₨)</option>
+                      <option value="USD">USD ($)</option>
+                      <option value="EUR">EUR (€)</option>
+                      <option value="GBP">GBP (£)</option>
+                      <option value="INR">INR (₹)</option>
+                      <option value="AUD">AUD (A$)</option>
+                      <option value="CAD">CAD (C$)</option>
+                      <option value="JPY">JPY (¥)</option>
+                      <option value="SGD">SGD (S$)</option>
+                      <option value="CHF">CHF (Fr)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="salary-converter__result-row">
                 <div class="salary-converter__result">
                   <span class="salary-converter__result-label"
                     >Converted Amount</span
@@ -867,13 +872,12 @@
                   <span
                     class="salary-converter__result-value"
                     data-converted-salary
-                    >₨ 13,350,000</span
+                    >Enter salary to convert</span
                   >
                   <span
                     class="salary-converter__result-currency"
                     data-result-currency
-                    >NPR (Nepali Rupee)</span
-                  >
+                  ></span>
                 </div>
               </div>
             </div>

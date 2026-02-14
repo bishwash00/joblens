@@ -18,8 +18,6 @@ class JobsResultView extends BaseJobView {
   }
 
   async render(data, currency = undefined) {
-    console.log('🎨 Rendering job results:', data);
-
     if (!currency) this._data = data;
     else {
       this._data = data;
@@ -105,7 +103,7 @@ class JobsResultView extends BaseJobView {
           <div class="job-card__company-logo" data-company-logo>
             ${
               job.companyLogo
-                ? `<img src="${job.companyLogo}" alt="${job.companyName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                ? `<img src="${job.companyLogo}" alt="${job.companyName}" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                <span style="display:none;">${companyInitial}</span>`
                 : `<span>${companyInitial}</span>`
             }

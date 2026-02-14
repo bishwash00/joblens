@@ -6,8 +6,6 @@ class HeaderView {
 
   addHandlerCurrency(handler) {
     this._currenySelector.addEventListener('change', function (e) {
-      console.log(e.target.value);
-
       handler(e.target.value);
     });
   }

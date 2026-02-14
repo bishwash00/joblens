@@ -51,7 +51,6 @@ class JobSearchView {
       const query = this.getSearchQuery();
       if (!query) return;
 
-      console.log('🔍 Search triggered:', query);
       const filters = this.getFilters();
 
       this.showClearButton();
@@ -103,8 +102,6 @@ class JobSearchView {
         if (!query) return;
 
         const filters = this.getFilters();
-        console.log('🔧 Filter changed:', filters);
-
         handler(filters);
       });
     });

@@ -2,6 +2,109 @@
 // CHARTS - Analytics & Data Visualization
 // ============================================
 
+// Chart loading, error, and empty states
+.chart-loading,
+.chart-error,
+.chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: $spacing-3;
+  color: $text-muted;
+  font-size: $font-size-sm;
+
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.chart-error {
+  color: $color-error;
+}
+
+// --------------------------------------------
+// ANALYTICS EMPTY STATE
+// --------------------------------------------
+.analytics__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-6;
+  padding: $spacing-16 $spacing-4;
+  text-align: center;
+  min-height: 60vh;
+}
+
+.analytics__empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  background-color: $color-primary-bg;
+  border-radius: $radius-full;
+
+  svg {
+    width: 3rem;
+    height: 3rem;
+    color: $color-primary;
+  }
+}
+
+.analytics__empty-title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+}
+
+.analytics__empty-text {
+  max-width: 440px;
+  font-size: $font-size-base;
+  color: $text-muted;
+  line-height: 1.6;
+}
+
+.analytics__empty-suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3;
+  margin-top: $spacing-2;
+}
+
+.analytics__empty-hint {
+  font-size: $font-size-sm;
+  color: $text-muted;
+  font-weight: $font-weight-medium;
+}
+
+.analytics__empty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  justify-content: center;
+}
+
+.analytics__empty-tag {
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+  background-color: $color-primary-bg;
+  border: $border-width solid rgba($color-primary, 0.2);
+  border-radius: $radius-full;
+  cursor: default;
+  transition: $transition-all;
+
+  &:hover {
+    background-color: rgba($color-primary, 0.15);
+  }
+}
+
 .analytics {
   display: flex;
   flex-direction: column;
@@ -512,6 +615,7 @@
     display: flex;
     align-items: flex-end;
     gap: $spacing-4;
+    flex-wrap: wrap;
 
     @media (max-width: $breakpoint-md) {
       flex-direction: column;
@@ -524,6 +628,7 @@
     flex-direction: column;
     gap: $spacing-2;
     flex: 1;
+    min-width: 180px;
   }
 
   &__label {
@@ -573,6 +678,15 @@
       border-color: $color-primary;
       box-shadow: 0 0 0 3px $color-primary-bg;
     }
+
+    &--full {
+      width: 100%;
+    }
+  }
+
+  &__result-row {
+    width: 100%;
+    margin-top: $spacing-4;
   }
 
   &__arrow {
@@ -598,17 +712,13 @@
   &__result {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     gap: $spacing-1;
-    flex: 1;
+    width: 100%;
     padding: $spacing-4;
     background-color: $color-success-bg;
     border: $border-width solid $color-success;
     border-radius: $radius-lg;
-
-    @media (max-width: $breakpoint-md) {
-      align-items: center;
-    }
   }
 
   &__result-label {

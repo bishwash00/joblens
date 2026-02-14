@@ -1,9 +1,13 @@
-import { TIMEOUT_SEC } from './config.js';
+import { TIMEOUT_SEC, DEBUG } from './config.js';
 
 // Exchange rate cache
 let exchangeRateCache = {};
 let cacheTimestamp = 0;
 const CACHE_DURATION = 3600000; // 1 hour
+
+// Lightweight logger - no-ops in production
+export const log = DEBUG ? console.log.bind(console) : () => {};
+export const logError = DEBUG ? console.error.bind(console) : () => {};
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -13,9 +17,23 @@ const timeout = function (s) {
   });
 };
 
-export const getJSON = async function (url) {
+// In-memory GET request cache (URL -> {data, timestamp})
+const _requestCache = new Map();
+const REQUEST_CACHE_TTL = 5 * 60 * 1000; // 5 mins
+
+export const getJSON = async function (url, useCache = true) {
   try {
-    console.log('📡 Making request to:', url);
+    // Return cached response if fresh
+    if (useCache && _requestCache.has(url)) {
+      const cached = _requestCache.get(url);
+      if (Date.now() - cached.timestamp < REQUEST_CACHE_TTL) {
+        log('📦 Cache hit:', url.split('?')[0]);
+        return cached.data;
+      }
+      _requestCache.delete(url);
+    }
+
+    log('📡 Making request to:', url);
 
     const res = await Promise.race([
       fetch(url, {
@@ -29,53 +47,59 @@ export const getJSON = async function (url) {
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
-      console.error(`❌ HTTP Error ${res.status}:`, errorData);
+      logError(`❌ HTTP Error ${res.status}:`, errorData);
       throw new Error(
         `${errorData.message || 'Request failed'} (${res.status})`,
       );
     }
 
     const data = await res.json();
-    console.log('✅ Request successful:', {
-      url: url.split('?')[0], // Log URL without query params for cleaner output
-      status: res.status,
-      hasData: !!data,
-    });
+
+    // Cache successful responses
+    if (useCache) {
+      _requestCache.set(url, { data, timestamp: Date.now() });
+    }
+
+    log('✅ Request successful:', url.split('?')[0]);
 
     return data;
   } catch (err) {
-    console.error('❌ Request failed:', err.message);
+    logError('❌ Request failed:', err.message);
     throw err;
   }
 };
 
 // Utility function to convert currency with cached exchange rates
+// Cache per-currency with individual timestamps for better cache management
+const _currencyCacheTimestamps = {};
+
 export const convertCurrency = async function (
   amount,
   fromCurrency,
   toCurrency,
 ) {
   if (fromCurrency === toCurrency) return amount;
+  if (!amount || isNaN(amount)) return amount;
 
   try {
     const now = Date.now();
     if (
       !exchangeRateCache[fromCurrency] ||
-      now - cacheTimestamp > CACHE_DURATION
+      now - (_currencyCacheTimestamps[fromCurrency] || 0) > CACHE_DURATION
     ) {
       const res = await fetch(
         `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`,
       );
       const data = await res.json();
       exchangeRateCache[fromCurrency] = data.rates;
-      cacheTimestamp = now;
+      _currencyCacheTimestamps[fromCurrency] = now;
     }
 
     const rate = exchangeRateCache[fromCurrency]?.[toCurrency];
     if (!rate) throw new Error(`Conversion rate not found`);
     return amount * rate;
   } catch (err) {
-    console.error('❌ Currency conversion failed:', err.message);
+    logError('❌ Currency conversion failed:', err.message);
     return amount; // fallback to original amount
   }
 };

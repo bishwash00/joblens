@@ -44,7 +44,7 @@ class BookmarksView extends BaseJobView {
                     <div class="bookmark-item__icon">
                        ${
                          job.companyLogo
-                           ? `<img src="${job.companyLogo}" alt="${job.companyName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                           ? `<img src="${job.companyLogo}" alt="${job.companyName}" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                <span style="display:none;">${companyInitial}</span>`
                            : `<span>${companyInitial}</span>`
                        }
