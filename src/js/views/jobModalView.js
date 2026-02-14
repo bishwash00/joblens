@@ -1,17 +1,13 @@
+import BaseJobView from './baseJobView.js';
 import icons from 'url:../../img/icons.svg';
-import {
-  formatCurrency,
-  formatPostedDate,
-  truncateText,
-  getCompanyInitial,
-} from '../helpers.js';
 
-class JobModalView {
+class JobModalView extends BaseJobView {
   _parentEl = document.querySelector('.job-modal');
   _jobModal = this._parentEl?.querySelector('.job-modal__content');
   _data;
 
   constructor() {
+    super();
     this.addHandlerCloseModal();
   }
 
@@ -27,6 +23,7 @@ class JobModalView {
     this._jobModal.innerHTML = '';
 
     this._data = data;
+    console.log(this._data);
     const markup = await this._generateMarkup();
 
     this._jobModal.insertAdjacentHTML('beforeend', markup);
@@ -35,9 +32,9 @@ class JobModalView {
   }
 
   async _generateMarkup() {
-    const companyInitial = getCompanyInitial(this._data.companyName);
-    const description = truncateText(this._data.description, 500);
-    const postedDate = formatPostedDate(this._data.postedDate);
+    const companyInitial = this._getCompanyInitial(this._data.companyName);
+    const description = this._truncateText(this._data.description, 500);
+    const postedDate = this._formatPostedDate(this._data.postedDate);
     const jobTypeTag = this._getJobTypeTag(this._data.jobType);
     const responsibilitiesList = this._getListItems(
       this._data.highlights.responsibilities,
@@ -79,12 +76,12 @@ class JobModalView {
                 </div>
               </div>
               <button
-                class="job-modal__bookmark"
+                class="job-modal__bookmark ${this._data.isBookmarked ? 'job-modal__bookmark--active' : ''}"
                 data-modal-bookmark
                 aria-label="Bookmark job"
               >
                 <svg><use href="${icons}#icon-bookmark"></use></svg>
-                <span>Save Job</span>
+                <span>${this._data.isBookmarked ? 'Saved' : 'Save Job'}</span>
               </button>
             </div>
 
@@ -186,37 +183,30 @@ class JobModalView {
                 </ul>`;
   }
 
-  async _formatSalaryDisplay(job, currency = 'USD', convertTo = null) {
-    if (job.salaryMin && job.salaryMax) {
-      return `${await formatCurrency(job.salaryMin, currency, convertTo)} - ${await formatCurrency(job.salaryMax, currency, convertTo)}`;
-    } else if (job.salaryMin) {
-      return `${await formatCurrency(job.salaryMin, currency, convertTo)}+`;
-    } else if (job.salaryMax) {
-      return `Up to ${await formatCurrency(job.salaryMax, currency, convertTo)}`;
-    }
-    return 'Salary not specified';
-  }
-
-  _getJobTypeTag(jobType) {
-    const typeMap = {
-      FULLTIME: 'Full-time',
-      PARTTIME: 'Part-time',
-      CONTRACTOR: 'Contract',
-      INTERN: 'Internship',
-    };
-
-    const displayType = typeMap[jobType] || jobType || 'Full-time';
-    const cssClass = jobType?.toLowerCase() || 'fulltime';
-
-    return `<span class="job-card__tag job-card__tag--${cssClass}">${displayType}</span>`;
-  }
-
   addHandlerCloseModal() {
     this._parentEl.addEventListener('click', e => {
       const btn = e.target.closest('.job-modal__close');
       if (!btn) return;
 
       this._hideModalView();
+    });
+  }
+
+  addHandlerBookmarkModal(handler) {
+    this._parentEl.addEventListener('click', e => {
+      const btn = e.target.closest('.job-modal__bookmark');
+      if (!btn) return;
+
+      handler(this._data);
+
+      // Update button state
+      btn.classList.toggle('job-modal__bookmark--active');
+      const span = btn.querySelector('span');
+      if (span) {
+        span.textContent = btn.classList.contains('job-modal__bookmark--active')
+          ? 'Saved'
+          : 'Save Job';
+      }
     });
   }
 }

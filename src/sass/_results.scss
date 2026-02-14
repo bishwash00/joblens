@@ -102,23 +102,80 @@
 
     .job-card {
       flex-direction: row;
-      gap: $spacing-4;
+      align-items: center;
+      gap: $spacing-3;
+      padding: $spacing-3 $spacing-4;
 
       &__header {
         flex-shrink: 0;
+        margin-bottom: 0;
+        align-items: center;
+      }
+
+      &__meta {
+        flex-direction: row;
+        gap: $spacing-3;
+        align-items: center;
+      }
+
+      &__company {
+        font-size: $font-size-base;
+      }
+
+      &__location {
+        font-size: $font-size-sm;
       }
 
       &__body {
         flex: 1;
+        gap: $spacing-2;
+        min-width: 0;
+      }
+
+      &__title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+      }
+
+      &__description {
+        display: none;
+      }
+
+      &__tags {
+        gap: $spacing-1;
+      }
+
+      &__tag {
+        padding: $spacing-1 $spacing-2;
+        font-size: $font-size-xs;
       }
 
       &__footer {
         flex-shrink: 0;
-        flex-direction: column;
-        align-items: flex-end;
-        padding-top: 0;
-        margin-top: 0;
-        border-top: none;
+        flex-direction: row;
+        align-items: center;
+        gap: $spacing-3;
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+
+      &__salary {
+        white-space: nowrap;
+        font-size: $font-size-sm;
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      &__posted {
+        white-space: nowrap;
+        font-size: $font-size-sm;
+        color: $text-muted;
       }
     }
   }

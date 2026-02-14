@@ -22,7 +22,7 @@ export const state = {
   },
   currency: {
     base: 'USD',
-    target: 'NPR',
+    target: '',
     rate: 1,
   },
   bookmarks: [],
@@ -54,6 +54,7 @@ const formatJobData = function (jobData) {
       qualifications: job.job_highlights?.Qualifications || [],
       responsibilities: job.job_highlights?.Responsibilities || [],
     },
+    isBookmarked: checkBookmark(job.job_id),
   }));
 };
 
@@ -155,6 +156,52 @@ export const getJobDetails = async function (jobId) {
 
   return null;
 };
+
+export const setCurrencyValue = function (currency) {
+  state.currency.target = currency;
+};
+
+const persistBookmarks = function () {
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
+
+export const addBookmark = function (job) {
+  job.isBookmarked = true;
+  state.bookmarks.push(job);
+
+  // Update search results if job is there
+  const searchJob = state.search.results.find(result => result.id === job.id);
+  if (searchJob) searchJob.isBookmarked = true;
+
+  persistBookmarks();
+};
+
+export const removeBookmark = function (jobId) {
+  const bookmarkIndex = state.bookmarks.findIndex(
+    bookmark => bookmark.id === jobId,
+  );
+  if (bookmarkIndex > -1) {
+    state.bookmarks[bookmarkIndex].isBookmarked = false;
+    state.bookmarks.splice(bookmarkIndex, 1);
+  }
+
+  // Update search results if job is there
+  const searchJob = state.search.results.find(result => result.id === jobId);
+  if (searchJob) searchJob.isBookmarked = false;
+
+  persistBookmarks();
+};
+
+export const checkBookmark = function (jobId) {
+  if (state.bookmarks.some(bookmark => bookmark.id === jobId)) return true;
+  return false;
+};
+
+const init = function () {
+  const storageBookmarks = localStorage.getItem('bookmarks');
+  state.bookmarks = storageBookmarks ? JSON.parse(storageBookmarks) : [];
+};
+init();
 
 // Function to check proxy server health
 export const checkServerHealth = async function () {

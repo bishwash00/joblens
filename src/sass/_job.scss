@@ -108,9 +108,11 @@
 
     &--active {
       color: $color-warning;
+      background-color: $color-warning-bg;
 
       &:hover {
         color: $color-warning-light;
+        background-color: $color-warning-bg;
       }
     }
   }

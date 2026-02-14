@@ -1,12 +1,7 @@
+import BaseJobView from './baseJobView.js';
 import icons from 'url:../../img/icons.svg';
-import {
-  formatCurrency,
-  formatPostedDate,
-  truncateText,
-  getCompanyInitial,
-} from '../helpers.js';
 
-class JobsResultView {
+class JobsResultView extends BaseJobView {
   _parentEl = document.querySelector('.results');
   _emptyEl = this._parentEl?.querySelector('[data-results-empty]');
   _loadingEl = this._parentEl?.querySelector('[data-results-loading]');
@@ -16,11 +11,21 @@ class JobsResultView {
     '[data-results-count] strong',
   );
   _data;
+  _currencyVal;
 
-  async render(data) {
+  constructor() {
+    super();
+  }
+
+  async render(data, currency = undefined) {
     console.log('🎨 Rendering job results:', data);
 
-    this._data = data;
+    if (!currency) this._data = data;
+    else {
+      this._data = data;
+      this._currencyVal = currency;
+    }
+
     this._hideAllStates();
 
     // Update results count
@@ -81,10 +86,14 @@ class JobsResultView {
   }
 
   async _generateJobCard(job) {
-    const companyInitial = getCompanyInitial(job.companyName);
-    const description = truncateText(job.description, 120);
-    const salaryDisplay = await this._formatSalaryDisplay(job);
-    const postedDate = formatPostedDate(job.postedDate);
+    const companyInitial = this._getCompanyInitial(job.companyName);
+    const description = this._truncateText(job.description, 120);
+    const salaryDisplay = await this._formatSalaryDisplay(
+      job,
+      this._currencyVal?.base,
+      this._currencyVal?.target,
+    );
+    const postedDate = this._formatPostedDate(job.postedDate);
     const jobTypeTag = this._getJobTypeTag(job.jobType);
     const remoteTag = job.isRemote
       ? '<span class="job-card__tag job-card__tag--remote">Remote</span>'
@@ -111,7 +120,7 @@ class JobsResultView {
             </span>
           </div>
           <button
-            class="job-card__bookmark"
+            class="job-card__bookmark ${job.isBookmarked ? 'job-card__bookmark--active' : ''}"
             data-bookmark-btn
             aria-label="Bookmark job"
           >
@@ -148,31 +157,6 @@ class JobsResultView {
     `;
   }
 
-  async _formatSalaryDisplay(job) {
-    if (job.salaryMin && job.salaryMax) {
-      return `${await formatCurrency(job.salaryMin)} - ${await formatCurrency(job.salaryMax)}`;
-    } else if (job.salaryMin) {
-      return `${await formatCurrency(job.salaryMin)}+`;
-    } else if (job.salaryMax) {
-      return `Up to ${await formatCurrency(job.salaryMax)}`;
-    }
-    return 'Salary not specified';
-  }
-
-  _getJobTypeTag(jobType) {
-    const typeMap = {
-      FULLTIME: 'Full-time',
-      PARTTIME: 'Part-time',
-      CONTRACTOR: 'Contract',
-      INTERN: 'Internship',
-    };
-
-    const displayType = typeMap[jobType] || jobType || 'Full-time';
-    const cssClass = jobType?.toLowerCase() || 'fulltime';
-
-    return `<span class="job-card__tag job-card__tag--${cssClass}">${displayType}</span>`;
-  }
-
   addHandlerRetry(handler) {
     const retryBtn = this._errorEl?.querySelector('[data-retry-btn]');
     retryBtn?.addEventListener('click', () => {
@@ -188,8 +172,11 @@ class JobsResultView {
 
   addHandlerBookmark(handler) {
     this._resultsGridEl?.addEventListener('click', e => {
+      e.preventDefault();
+
       const bookmarkBtn = e.target.closest('[data-bookmark-btn]');
       if (bookmarkBtn) {
+        bookmarkBtn.classList.toggle('job-card__bookmark--active');
         const jobCard = bookmarkBtn.closest('[data-job-id]');
         const jobId = jobCard?.dataset.jobId;
         if (jobId) {
@@ -201,6 +188,9 @@ class JobsResultView {
 
   addHandlerJobClick(handler) {
     this._resultsGridEl?.addEventListener('click', function (e) {
+      const bookmarkBtn = e.target.closest('[data-bookmark-btn]');
+      if (bookmarkBtn) return;
+
       const jobEl = e.target.closest('.job-card');
       if (!jobEl) return;
 
