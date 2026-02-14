@@ -6,7 +6,7 @@
 
 ## 🚀 Live Demo
 
-> _(Add link after deployment)_
+> https://joblens-ashen.vercel.app/
 
 ---
 
