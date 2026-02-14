@@ -1,5 +1,10 @@
 // JobLens API Configuration for JSearch API
-export const PROXY_SERVER_URL = 'http://localhost:8080';
+// In production (Vercel), use relative URLs so requests go to the same domain.
+// In development, use localhost proxy server.
+const isDev =
+  typeof window !== 'undefined' && window.location.hostname === 'localhost';
+
+export const PROXY_SERVER_URL = isDev ? 'http://localhost:8080' : '';
 export const TIMEOUT_SEC = 30;
 
 // Set to false in production to disable all console logs
